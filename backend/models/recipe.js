@@ -1,11 +1,32 @@
 const mongoose = require('mongoose')
 
 const recipeSchema = mongoose.Schema({
-  name: String,
-  ingredients: [String],
-  instructions: String,
-  category: String,
-  timeUsed: Number,
+  name: {
+    type: String,
+    required: true
+  },
+  ingredients: {
+    type: [String],
+    required: true,
+    validate: {
+      validator: function(arr) {
+        return arr.length > 0
+      },
+      message: 'Recipe must have at least one ingredient'
+    }
+  },
+  instructions: {
+    type: String,
+    required: true
+  },
+  category: {
+    type: String,
+    required: false
+  },
+  timeUsed: {
+    type: Number,
+    required: true
+  },
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'

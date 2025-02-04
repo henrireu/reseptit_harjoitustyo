@@ -6,6 +6,8 @@ const mongoose = require('mongoose')
 
 const errorHandler = require('./middleware/errorHandler')
 const usersRouter = require('./routes/users')
+const recipesRouter = require('./routes/recipes')
+const loginRouter = require('./routes/login')
 
 console.log('connecting to mongodb')
 
@@ -23,7 +25,8 @@ mongoose.connect(MONGODB_URI)
   })
 
 app.use('/api/users', usersRouter)
-
+app.use('/api/recipes', recipesRouter)
+app.use('/api/login', loginRouter)
 app.use(errorHandler)
 
 module.exports = app
