@@ -1,6 +1,8 @@
 import { useEffect } from "react"
 import { getAll } from "./services/users"
 
+import Navbar from "./components/navbar"
+
 const App = () => {
 
   useEffect(() => {
@@ -8,7 +10,9 @@ const App = () => {
   }, [])
 
   return (
-    <div className="ext-3xl font-bold underline">moro</div>
+    <div>
+      <Navbar />
+    </div>
   )
 }
 
