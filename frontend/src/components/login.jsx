@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { login } from "../services/login"
 import { useDispatch } from 'react-redux'
 import { setUser } from "../reducers/userSlice"
@@ -38,6 +39,7 @@ const LoginForm = () => {
   const [password, setPassword] = useState('')
 
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -52,6 +54,11 @@ const LoginForm = () => {
     } catch(error) {
       console.error(error)
     }
+  }
+
+  const handleSignup = () => {
+    dispatch(setShowLogin(false))
+    navigate('/signup')
   }
 
   return (
@@ -84,8 +91,19 @@ const LoginForm = () => {
 
       <button 
         type="submit" 
-        className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:cursor-pointer"
+        className="mb-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:cursor-pointer"
       >Submit</button>
+
+      <p className="text-md font-light text-gray-500 dark:text-gray-400">
+        Don’t have an account yet? 
+        <a 
+          href="#" 
+          className="font-medium text-blue-700 hover:underline dark:text-primary-500 ml-2"
+          onClick={handleSignup}
+        >
+          Sign up
+        </a>
+      </p>
     </form>
   )
 }
