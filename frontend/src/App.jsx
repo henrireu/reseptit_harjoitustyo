@@ -1,5 +1,5 @@
-import { useState } from "react"
 import { Routes, Route } from "react-router-dom"
+import { useSelector } from "react-redux"
 
 import Navbar from "./components/navbar"
 import Home from "./pages/home"
@@ -7,15 +7,14 @@ import AllRecipes from "./pages/allRecipes"
 import Login from "./components/login"
 
 const App = () => {
-  const [showLoginForm, setShowLoginForm] = useState(false)
-  const [user, setUser] = useState(null)
+  const showLoginForm = useSelector(state => state.showLogin)
 
   return (
     <div>
-      <Navbar setShowLoginForm={setShowLoginForm} user={user} setUser={setUser}/>
+      <Navbar />
 
       {showLoginForm && (
-        <Login setShowLoginForm={setShowLoginForm} setUser={setUser}/>
+        <Login />
       )}
 
       <Routes>

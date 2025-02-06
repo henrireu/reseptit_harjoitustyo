@@ -1,7 +1,16 @@
 import { useState } from "react"
 import { login } from "../services/login"
+import { useDispatch } from 'react-redux'
+import { setUser } from "../reducers/userSlice"
+import { setShowLogin } from "../reducers/showLoginSlice"
 
-const Login = ({ setShowLoginForm, setUser }) => {
+const Login = () => {
+  const dispatch = useDispatch()
+
+  const handleExit = () => {
+    dispatch(setShowLogin(false))
+  }
+
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/30">
       <div className="bg-white mx-6 mt-[50px] p-4 rounded-lg shadow-lg max-w-[600px] w-full">
@@ -13,20 +22,22 @@ const Login = ({ setShowLoginForm, setUser }) => {
             strokeWidth={1.5} 
             stroke="currentColor" 
             className="size-6 hover:cursor-pointer"
-            onClick={() => setShowLoginForm(false)}
+            onClick={handleExit}
           >
             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
           </svg>
         </div>
-        <LoginForm setUser={setUser} setShowLoginForm={setShowLoginForm}/>
+        <LoginForm />
       </div>
     </div>
   )
 }
 
-const LoginForm = ({ setUser, setShowLoginForm }) => {
+const LoginForm = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+
+  const dispatch = useDispatch()
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -35,9 +46,9 @@ const LoginForm = ({ setUser, setShowLoginForm }) => {
       const user = await login({
         username, password
       })
-      setUser(user)
+      dispatch(setUser(user))
       console.log(user)
-      setShowLoginForm(false)
+      dispatch(setShowLogin(false))
     } catch(error) {
       console.error(error)
     }

@@ -1,18 +1,24 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
 import logo from '../assets/foodIcon.jpg'
+import { useDispatch, useSelector } from 'react-redux'
+import { setUser } from "../reducers/userSlice"
+import { setShowLogin } from "../reducers/showLoginSlice"
 
-const Navbar = ({ setShowLoginForm, user, setUser }) => {
+const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
+
+  const user = useSelector(state => state.user)
+  const dispatch = useDispatch()
 
   const handleLogin = () => {
     setIsOpen(false)
-    setShowLoginForm(true)
+    dispatch(setShowLogin(true))
   }
 
   const handleLogout = () => {
     console.log('logout')
-    setUser(null)
+    dispatch(setUser(null))
   }
 
   return (
