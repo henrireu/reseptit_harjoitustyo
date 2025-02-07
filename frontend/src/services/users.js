@@ -13,13 +13,32 @@ const getAll = async () => {
 }
 
 const create = async newUser => {
-  const config = {
-    headers: { Authorization: token },
+  try {
+
+    const config = {
+      headers: { Authorization: token },
+    }
+  
+    const response = await axios.post(baseUrl, newUser, config)
+  
+    return response.data
+  } catch(error) {
+
+    if (axios.isAxiosError(error)) {
+      console.error("Axios error:", error.message)
+
+      if (error.response) {
+        throw new Error(error.response.data.error || "Something went wrong")
+      } else if (error.request) {
+        throw new Error("No response from server.")
+      } else {
+        throw new Error("Error setting up request.")
+      }
+    } else {
+      throw new Error("An unexpected error occurred.")
+    }
   }
 
-  const response = await axios.post(baseUrl, newUser, config)
-
-  return response.data
 }
 
 export { getAll, create }

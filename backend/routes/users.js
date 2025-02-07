@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 const usersRouter = require('express').Router()
 const User = require('../models/user')
 
@@ -31,5 +32,36 @@ usersRouter.post('/', async (request, response, next) => {
     next(error) 
   }
 })
+
+usersRouter.delete("/:id", async (request, response) => {
+  try {
+    if (!request.token) {
+      return response.status(401).json({ error: 'Token missing or invalid' })
+    }
+
+    const decodedToken = jwt.verify(request.token, process.env.SECRET)
+
+    if (decodedToken) {
+      const user = await User.findById(request.params.id)
+
+      if (!user) {
+        return response.status(404).json({ error: 'User not found' })
+      }
+    
+      if(decodedToken.id !== user.id) {
+        return response.status(403).json({ error: 'Unauthorized to delete this user' })
+      }
+
+      await User.findByIdAndDelete(request.params.id)
+      response.status(204).end()
+    } else {
+      return response.status(401).json({ error: 'token invalid' })
+    }
+    
+  } catch (error) {
+    console.error(error)
+    response.status(500).json({ error: 'Something went wrong' })
+  }
+});
 
 module.exports = usersRouter

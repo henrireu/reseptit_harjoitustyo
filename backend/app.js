@@ -8,6 +8,7 @@ const errorHandler = require('./middleware/errorHandler')
 const usersRouter = require('./routes/users')
 const recipesRouter = require('./routes/recipes')
 const loginRouter = require('./routes/login')
+const { tokenExtractor } = require('./middleware/authMiddleware')
 
 console.log('connecting to mongodb')
 
@@ -23,6 +24,8 @@ mongoose.connect(MONGODB_URI)
   .catch((error) => {
     console.error(error)
   })
+
+app.use(tokenExtractor)
 
 app.use('/api/users', usersRouter)
 app.use('/api/recipes', recipesRouter)

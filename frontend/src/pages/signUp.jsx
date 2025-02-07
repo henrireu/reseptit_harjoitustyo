@@ -1,6 +1,10 @@
 import { useState } from "react"
 import { toast, Toaster } from 'react-hot-toast'
+import { useDispatch } from "react-redux"
+import { useNavigate } from "react-router-dom"
 
+import { login } from "../services/login"
+import { setUser } from "../reducers/userSlice"
 import { create } from "../services/users"
 
 const SignUp = () => {
@@ -9,25 +13,48 @@ const SignUp = () => {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
 
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
   const handleSubmit = async (event) => {
     event.preventDefault()
-    console.log('submit', username, name, password, confirmPassword)
     if(password !== confirmPassword) {
-      toast.error("Passwords do not match!", {
-        position: "top-center"
-      })
+      toast.error('Passwords do not match!')
       return
     }
     try {
-      const user = await create({
+      await create({
         username: username,
         name: name,
         password: password
       })
 
-      console.log(user)
-    } catch(error) {
-      console.error(error)
+      try {
+        const user = await login({
+          username, password
+        })
+        dispatch(setUser(user))
+        console.log(user)
+        toast.success(`User ${username} created succesfully`)
+        setUsername('')
+        setName('')
+        setPassword('')
+        setConfirmPassword('')
+        setTimeout(() => {
+          navigate('/')
+        }, 3000)
+      } catch(error) {
+        console.error(error)
+      }
+
+    } catch (error) {
+      console.error(error.message)
+  
+      if (error.message.includes("expected `username` to be unique")) {
+        toast.error('Username must be unique!')
+      } else {
+        toast.error(`Error: ${error.message}`)
+      }
     }
   }
 
