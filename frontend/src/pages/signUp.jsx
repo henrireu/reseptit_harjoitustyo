@@ -51,7 +51,7 @@ const SignUp = () => {
       console.error(error.message)
   
       if (error.message.includes("expected `username` to be unique")) {
-        toast.error('Username must be unique!')
+        toast.error('Username is already taken')
       } else {
         toast.error(`Error: ${error.message}`)
       }
@@ -104,7 +104,7 @@ const SignUp = () => {
         </div>
 
         <div className="mb-5">
-          <label htmlFor="confirmPassword" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your password*</label>
+          <label htmlFor="confirmPassword" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password*</label>
           <input 
             type="password" 
             id="confirmPassword" 

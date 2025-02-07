@@ -9,23 +9,20 @@ recipesRouter.get('/', async (request, response, next) => {
   response.json(recipes)
 })
 
-const getTokenFrom = request => {
-  const authorization = request.get('authorization')
-  if(authorization && authorization.startsWith('Bearer ')) {
-    return authorization.replace('Bearer ', '')
-  }
-  return null
-}
-
 recipesRouter.post('/', async (request, response, next) => {
   try {
     const body = request.body
 
-    const decodedToken = jwt.verify(getTokenFrom(request), process.env.SECRET)
+    const decodedToken = jwt.verify(request.token, process.env.SECRET)
+  
     if (!decodedToken.id) {
       return response.status(401).json({ error: 'token invalid' })
     }
     const user = await User.findById(decodedToken.id)
+
+    if (!user) {
+      return response.status(404).json({ error: 'User not found' })
+    }
 
     const recipe = new Recipe({
       ...body,
@@ -38,12 +35,29 @@ recipesRouter.post('/', async (request, response, next) => {
 
     response.json(savedRecipe)
   } catch(error) {
+    console.error('here error:', error)
     next(error)
   }
 })
 
 recipesRouter.delete('/:id', async (request, response, next) => {
   try {
+    const decodedToken = jwt.verify(request.token, process.env.SECRET)
+
+    if (!decodedToken.id) {
+      return response.status(401).json({ error: 'token invalid' })
+    }
+
+    const recipe = await Recipe.findById(request.params.id)
+
+    if(!recipe) {
+      return response.status(404).json({ error: 'Recipe not found' })
+    }
+
+    if(recipe.user.toString() !== decodedToken.id) {
+      return response.status(403).json({ error: 'Unauthorized to delete this recipe' })
+    }
+
     await Recipe.findByIdAndDelete(request.params.id)
     response.status(204).end()
   } catch(error) {

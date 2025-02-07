@@ -12,7 +12,7 @@ const errorHandler = (error, request, response, next) => {
       error: 'token expired'
     })
   }
-  
+
   response.status(500).json({ error: 'Internal server error' })
 }
   
