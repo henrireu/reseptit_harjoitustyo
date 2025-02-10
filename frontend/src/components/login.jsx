@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { login } from "../services/login"
+import { setToken } from "../services/recipes"
 import { useDispatch } from 'react-redux'
 import { setUser } from "../reducers/userSlice"
 import { setShowLogin } from "../reducers/showLoginSlice"
@@ -46,10 +47,16 @@ const LoginForm = () => {
 
     try {
       const user = await login({
-        username, password
+        username, password,
       })
+
+      window.localStorage.setItem(
+        'loggedRecipeAppUser', JSON.stringify(user)
+      )
+
+      setToken(user.token)
+      
       dispatch(setUser(user))
-      console.log(user)
       dispatch(setShowLogin(false))
     } catch(error) {
       console.error(error)

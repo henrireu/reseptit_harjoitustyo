@@ -1,6 +1,9 @@
+import { useEffect } from "react"
 import { Routes, Route } from "react-router-dom"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 
+import { setUser } from "./reducers/userSlice"
+import { setToken } from "./services/recipes"
 import Navbar from "./components/navbar"
 import Home from "./pages/home"
 import AllRecipes from "./pages/allRecipes"
@@ -10,6 +13,16 @@ import SignUp from "./pages/signUp"
 
 const App = () => {
   const showLoginForm = useSelector(state => state.showLogin)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem('loggedRecipeAppUser')
+    if (loggedUserJSON) {
+      const user = JSON.parse(loggedUserJSON)
+      dispatch(setUser(user))
+      setToken(user.token)
+    }
+  }, [])
 
   return (
     <div>

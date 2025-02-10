@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import logo from '../assets/foodIcon.jpg'
 import { useDispatch, useSelector } from 'react-redux'
 import { setUser } from "../reducers/userSlice"
@@ -10,6 +10,7 @@ const Navbar = () => {
 
   const user = useSelector(state => state.user)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const handleLogin = () => {
     setIsOpen(false)
@@ -19,6 +20,8 @@ const Navbar = () => {
   const handleLogout = () => {
     console.log('logout')
     dispatch(setUser(null))
+    window.localStorage.removeItem('loggedRecipeAppUser')
+    navigate('/')
   }
 
   return (

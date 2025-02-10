@@ -6,27 +6,47 @@ const recipeSchema = mongoose.Schema({
     required: true
   },
   ingredients: {
+    type: [
+      new mongoose.Schema(
+        {
+          amount: { type: String, required: true },
+          unit: { type: String, required: true },
+          ingredient: { type: String, required: true }
+        },
+        { _id: false }
+      )
+    ],
+    required: true,
+    validate: {
+      validator: function(arr) {
+        return arr.length > 0;
+      },
+      message: 'Recipe must have at least one ingredient'
+    }
+  },
+
+  instructions: {
     type: [String],
     required: true,
     validate: {
       validator: function(arr) {
         return arr.length > 0
       },
-      message: 'Recipe must have at least one ingredient'
+      message: 'Instructions must have at least one instruction'
     }
   },
-  instructions: {
+  /*instructions: {
     type: String,
     required: true
-  },
+  },*/
   category: {
     type: String,
     required: false
   },
-  timeUsed: {
+  /*timeUsed: {
     type: Number,
     required: true
-  },
+  },*/
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
