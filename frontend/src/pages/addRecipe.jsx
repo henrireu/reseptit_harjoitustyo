@@ -1,12 +1,14 @@
 import { useState } from "react"
 import { toast, Toaster } from 'react-hot-toast'
 import { create } from "../services/recipes"
+import FileUpload from "../components/fileUpload"
 
 const AddRecipe = () => {
   const [step, setStep] = useState(1)
   const [progressBar, setProgressBar] = useState(0)
 
   const [recipeName, setRecipeName] = useState('')
+  const [imageFile, setImageFile] = useState(null)
   const [ingredients, setIngredients] = useState([])
   const [instructions, setInstructions] = useState([])
 
@@ -58,6 +60,8 @@ const AddRecipe = () => {
             handlePrevStep={handlePrevStep}
             recipeName={recipeName}
             setRecipeName={setRecipeName}
+            imageFile={imageFile}
+            setImageFile={setImageFile}
           />
         )}
 
@@ -93,11 +97,14 @@ const AddRecipe = () => {
   )
 }
 
-const Step1 = ({ handleNextStep, handlePrevStep, recipeName, setRecipeName}) => {
+const Step1 = ({ handleNextStep, handlePrevStep, recipeName, setRecipeName, imageFile, setImageFile }) => {
   const checkNextStep = () => {
     if (recipeName.length < 3) {
       toast.error('Recipe name must be at least 3 characters')
       return 
+    } else if (imageFile === null) {
+      toast.error('You must upload image for recipe')
+      return
     } else {
       handleNextStep()
     }
@@ -117,7 +124,9 @@ const Step1 = ({ handleNextStep, handlePrevStep, recipeName, setRecipeName}) => 
         />
       </div>
 
-      <div className="flex justify-between">
+      <FileUpload file={imageFile} setFile={setImageFile}/>
+
+      <div className="flex justify-between mt-5">
         <button 
           type="button" 
           className="mb-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:cursor-pointer"
@@ -326,7 +335,8 @@ const Step3 = ({ handleNextStep, handlePrevStep, instructions, setInstructions})
   )
 }
 
-const Step4 = ({ recipeName, instructions, ingredients, handlePrevStep }) => {
+const Step4 = ({ recipeName, instructions, ingredients, handlePrevStep, imageFile }) => {
+  console.log(imageFile)
   return (
     <div>
       <h3>{recipeName}</h3>

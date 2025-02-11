@@ -10,6 +10,7 @@ import AllRecipes from "./pages/allRecipes"
 import Login from "./components/login"
 import AddRecipe from "./pages/addRecipe"
 import SignUp from "./pages/signUp"
+import OwnRecipes from "./pages/ownRecipes"
 
 const App = () => {
   const showLoginForm = useSelector(state => state.showLogin)
@@ -37,6 +38,7 @@ const App = () => {
         <Route path='/all-recipes' element={<AllRecipes />} />
         <Route path='/add-recipe' element={<AddRecipe />} />
         <Route path='/signup' element={<SignUp />} />
+        <Route path='/own-recipes' element={<OwnRecipes />} />
       </Routes>
       
     </div>
