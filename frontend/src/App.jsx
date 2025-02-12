@@ -11,6 +11,7 @@ import Login from "./components/login"
 import AddRecipe from "./pages/addRecipe"
 import SignUp from "./pages/signUp"
 import OwnRecipes from "./pages/ownRecipes"
+import SingleRecipe from "./pages/singleRecipe"
 
 const App = () => {
   const showLoginForm = useSelector(state => state.showLogin)
@@ -34,6 +35,7 @@ const App = () => {
       )}
 
       <Routes>
+        <Route path='/all-recipes/:id' element={<SingleRecipe />} />
         <Route path='/' element={<Home />} />
         <Route path='/all-recipes' element={<AllRecipes />} />
         <Route path='/add-recipe' element={<AddRecipe />} />

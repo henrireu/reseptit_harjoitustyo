@@ -11,6 +11,19 @@ recipesRouter.get('/', async (request, response, next) => {
   response.json(recipes)
 })
 
+recipesRouter.get('/:id', async (request, response, next) => {
+  try {
+    const recipe = await Recipe.findById(request.params.id)
+    if (recipe){
+      response.json(recipe)
+    } else {
+      response.status(404).json({ error: "Recipe not found" })
+    }
+  } catch(error) {
+    next(error)
+  }
+})
+
 recipesRouter.post('/', upload.single('image'), async (request, response, next) => {
   try {
     const { name, ingredients, instructions } = request.body
@@ -30,6 +43,7 @@ recipesRouter.post('/', upload.single('image'), async (request, response, next) 
       return response.status(404).json({ error: 'User not found' })
     }
 
+
     const parsedIngredients = JSON.parse(ingredients)
     const parsedInstructions = JSON.parse(instructions)
 
@@ -38,6 +52,7 @@ recipesRouter.post('/', upload.single('image'), async (request, response, next) 
       ingredients: parsedIngredients,
       instructions: parsedInstructions,
       imageUrl: request.file.path, 
+      imageName: request.file.filename,
       user: user._id,
     })
 

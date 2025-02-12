@@ -17,6 +17,15 @@ const getAllRecipes = async () => {
   }
 }
 
+const getSingleRecipe = async id => {
+  try {
+    const response = await axios.get(`${baseUrl}/${id}`)
+    return response.data
+  } catch(error) {
+    handleAxiosError(error)
+  }
+}
+
 const create = async newRecipe => {
   console.log('new recipe', newRecipe)
 
@@ -41,4 +50,4 @@ const create = async newRecipe => {
   }
 }
 
-export { create, getAllRecipes, setToken }
+export { create, getAllRecipes, getSingleRecipe, setToken }
