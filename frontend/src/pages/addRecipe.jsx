@@ -2,6 +2,7 @@ import { useState } from "react"
 import { toast, Toaster } from 'react-hot-toast'
 import { create } from "../services/recipes"
 import FileUpload from "../components/fileUpload"
+//import NewRecipeCard from "../components/newRecipeCard"
 
 const AddRecipe = () => {
   const [step, setStep] = useState(1)
@@ -14,14 +15,16 @@ const AddRecipe = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
+    console.log('imageFile', imageFile)
     try {
       const recipe = {
         name: recipeName,
         ingredients: ingredients,
         instructions: instructions,
+        imageFile: imageFile
       }
       const newRecipe = await create(recipe)
-      console.log('new recipe', newRecipe)
+      console.log('new recipe with formdata', newRecipe)
     } catch(error) {
       console.error(error)
     }

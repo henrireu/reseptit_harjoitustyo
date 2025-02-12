@@ -1,5 +1,7 @@
 const jwt = require('jsonwebtoken')
 const recipesRouter = require('express').Router()
+
+const { upload } = require('../config/cloudinary')
 const Recipe = require('../models/recipe')
 const User = require('../models/user')
 
@@ -9,9 +11,13 @@ recipesRouter.get('/', async (request, response, next) => {
   response.json(recipes)
 })
 
-recipesRouter.post('/', async (request, response, next) => {
+recipesRouter.post('/', upload.single('image'), async (request, response, next) => {
   try {
-    const body = request.body
+    const { name, ingredients, instructions } = request.body
+
+    if (!request.file) {
+      return res.status(400).json({ message: "No image uploaded" })
+    }
 
     const decodedToken = jwt.verify(request.token, process.env.SECRET)
   
@@ -24,9 +30,15 @@ recipesRouter.post('/', async (request, response, next) => {
       return response.status(404).json({ error: 'User not found' })
     }
 
+    const parsedIngredients = JSON.parse(ingredients)
+    const parsedInstructions = JSON.parse(instructions)
+
     const recipe = new Recipe({
-      ...body,
-      user: user._id
+      name,
+      ingredients: parsedIngredients,
+      instructions: parsedInstructions,
+      imageUrl: request.file.path, 
+      user: user._id,
     })
 
     const savedRecipe = await recipe.save()

@@ -35,6 +35,10 @@ const recipeSchema = mongoose.Schema({
       message: 'Instructions must have at least one instruction'
     }
   },
+  imageUrl: {
+    type: String,
+    required: true
+  },
   /*instructions: {
     type: String,
     required: true

@@ -31,6 +31,7 @@ const AllRecipes = () => {
 const SingleRecipe = ({ recipe }) => {
   return (
     <div>
+      <img src={recipe.imageUrl} style={{ width: 200, height: 200}}/>
       {recipe.name}
     </div>
   )

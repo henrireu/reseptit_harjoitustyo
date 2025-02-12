@@ -18,12 +18,23 @@ const getAllRecipes = async () => {
 }
 
 const create = async newRecipe => {
+  console.log('new recipe', newRecipe)
+
+  const formData = new FormData()
+  formData.append("image", newRecipe.imageFile)
+  formData.append("name", newRecipe.name)
+  formData.append("ingredients", JSON.stringify(newRecipe.ingredients))
+  formData.append("instructions", JSON.stringify(newRecipe.instructions))
+
   try {
     const config = {
-      headers: { Authorization: token },
+      headers: { 
+        "Content-Type": "multipart/form-data",
+        Authorization: token 
+      },
     }
 
-    const response = await axios.post(baseUrl, newRecipe, config)
+    const response = await axios.post(baseUrl, formData, config)
     return response.data
   } catch(error) {
     handleAxiosError(error)
