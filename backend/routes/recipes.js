@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken')
 const recipesRouter = require('express').Router()
 
-const { upload } = require('../config/cloudinary')
+const { upload, cloudinary } = require('../config/cloudinary')
 const Recipe = require('../models/recipe')
 const User = require('../models/user')
 
@@ -84,6 +84,11 @@ recipesRouter.delete('/:id', async (request, response, next) => {
     if(recipe.user.toString() !== decodedToken.id) {
       return response.status(403).json({ error: 'Unauthorized to delete this recipe' })
     }
+
+    console.log('recipe', recipe)
+
+    const cloudinaryResult = await cloudinary.uploader.destroy(recipe.imageName)
+    console.log('cloudinaryResult',cloudinaryResult)
 
     await Recipe.findByIdAndDelete(request.params.id)
     response.status(204).end()

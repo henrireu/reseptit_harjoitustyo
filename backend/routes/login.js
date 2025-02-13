@@ -30,8 +30,6 @@ loginRouter.post('/', async (request, response, next) => {
       // 2h
       { expiresIn: 60*120 }
     )
-
-    //testaan että annan userIdn kanssa user olioon
   
     response
       .status(200)

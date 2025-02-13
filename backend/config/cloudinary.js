@@ -36,4 +36,4 @@ const upload = multer({
   }
 })
 
-module.exports = { upload, storage }
+module.exports = { upload, storage, cloudinary }
