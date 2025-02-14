@@ -5,6 +5,7 @@ import { setToken } from "../services/recipes"
 import { useDispatch } from 'react-redux'
 import { setUser } from "../reducers/userSlice"
 import { setShowLogin } from "../reducers/showLoginSlice"
+import LoadingButton from "./loadingButton"
 
 const Login = () => {
   const dispatch = useDispatch()
@@ -38,13 +39,15 @@ const Login = () => {
 const LoginForm = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-
+    setLoading(true)
     try {
       const user = await login({
         username, password,
@@ -60,6 +63,17 @@ const LoginForm = () => {
       dispatch(setShowLogin(false))
     } catch(error) {
       console.error(error)
+      if (error.response && error.response.status === 401) {
+        setError('Väärä käyttäjänimi tai salasana')
+      } else {
+        setError('Nettiyhteydessä on vikaa tai jokin muu virhe')
+      }
+      setTimeout(() => {
+        setError('')
+      }, 6000)
+      setLoading(false)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -70,7 +84,6 @@ const LoginForm = () => {
 
   return (
     <form onSubmit={handleSubmit} className="mx-auto">
-
       <div className="mb-5">
         <label htmlFor="username" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your username*</label>
         <input 
@@ -84,7 +97,7 @@ const LoginForm = () => {
         />
       </div>
 
-      <div className="mb-5">
+      <div className="mb-3">
         <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your password*</label>
         <input 
           type="password" 
@@ -96,10 +109,22 @@ const LoginForm = () => {
         />
       </div>
 
-      <button 
-        type="submit" 
-        className="mb-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:cursor-pointer"
-      >Submit</button>
+      <div className="h-[20px] flex items-center mb-2">
+        {error !== "" && (
+          <div className="text-sm text-red-500">
+            {error}
+          </div>
+        )}
+      </div>
+
+      {loading ? (
+        <LoadingButton />
+      ) : (
+        <button 
+          type="submit" 
+          className="mb-5 w-[100px] text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:cursor-pointer"
+        >Kirjaudu</button>
+      )}
 
       <p className="text-md font-light text-gray-500 dark:text-gray-400">
         Don’t have an account yet? 
