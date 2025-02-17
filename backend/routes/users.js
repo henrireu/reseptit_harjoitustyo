@@ -8,6 +8,15 @@ usersRouter.get('/', async (request, response, next) => {
   response.json(users)
 })
 
+usersRouter.get('/:id', async (request, response, next) => {
+  try {
+    const user = await User.findById(request.params.id).populate('recipes', { name: 1, ingredients: 1, instructions: 1, timeUsed: 1 })
+    response.json(user)
+  } catch (error) {
+    next(error)
+  }
+})
+
 usersRouter.post('/', async (request, response, next) => {
   try {
     const { username, name, password } = request.body
@@ -33,7 +42,7 @@ usersRouter.post('/', async (request, response, next) => {
   }
 })
 
-usersRouter.delete("/:id", async (request, response) => {
+usersRouter.delete('/:id', async (request, response) => {
   try {
     if (!request.token) {
       return response.status(401).json({ error: 'Token missing or invalid' })
@@ -62,6 +71,6 @@ usersRouter.delete("/:id", async (request, response) => {
     console.error(error)
     response.status(500).json({ error: 'Something went wrong' })
   }
-});
+})
 
 module.exports = usersRouter

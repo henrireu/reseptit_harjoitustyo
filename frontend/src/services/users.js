@@ -11,6 +11,15 @@ const getAll = async () => {
   }
 }
 
+const getUser = async id => {
+  try {
+    const request = await axios.get(`${baseUrl}/${id}`)
+    return request.data
+  } catch (error) {
+    handleAxiosError(error)
+  }
+}
+
 const create = async newUser => {
   try {
     const response = await axios.post(baseUrl, newUser)
@@ -22,4 +31,4 @@ const create = async newUser => {
 
 }
 
-export { getAll, create }
+export { getAll, create, getUser }
