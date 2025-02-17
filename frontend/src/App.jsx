@@ -6,12 +6,11 @@ import { setUser } from "./reducers/userSlice"
 import { setToken } from "./services/recipes"
 import Navbar from "./components/navbar"
 import Home from "./pages/home"
-import AllRecipes from "./pages/allRecipes"
 import Login from "./components/login"
 import AddRecipe from "./pages/addRecipe"
 import SignUp from "./pages/signUp"
-import OwnRecipes from "./pages/ownRecipes"
 import SingleRecipePage from "./pages/singleRecipePage"
+import Recipes from "./pages/recipes"
 
 const App = () => {
   const showLoginForm = useSelector(state => state.showLogin)
@@ -35,12 +34,11 @@ const App = () => {
       )}
 
       <Routes>
-        <Route path='/all-recipes/:id' element={<SingleRecipePage />} />
+        <Route path='/reseptit/:id' element={<SingleRecipePage />} />
         <Route path='/' element={<Home />} />
-        <Route path='/all-recipes' element={<AllRecipes />} />
-        <Route path='/add-recipe' element={<AddRecipe />} />
-        <Route path='/signup' element={<SignUp />} />
-        <Route path='/own-recipes' element={<OwnRecipes />} />
+        <Route path='/reseptit' element={<Recipes />} />
+        <Route path='/luo-resepti' element={<AddRecipe />} />
+        <Route path='/luo-tili' element={<SignUp />} />
       </Routes>
       
     </div>

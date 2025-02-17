@@ -6,6 +6,7 @@ import { getSingleRecipe } from "../services/recipes"
 import { getUser } from "../services/users"
 import DeleteRecipeModal from "../components/deleteRecipeModal"
 import ErrorComponent from "../components/errorComponent"
+import LoadingPage from "../components/loadingPage"
 
 const SingleRecipePage = () => {
   const [recipe, setRecipe] = useState(null)
@@ -21,7 +22,7 @@ const SingleRecipePage = () => {
       try {
         const recipe = await getSingleRecipe(id)
         //haetaan username api kutsulla
-        const userObject = await getUser(user.userId)
+        const userObject = await getUser(recipe.user)
         setRecipe({
           ...recipe,
           username: userObject.username
@@ -46,9 +47,7 @@ const SingleRecipePage = () => {
 
   if (loading) {
     return (
-      <div className="mt-[100px]">
-        loading...
-      </div>
+      <LoadingPage />
     )
   }
 

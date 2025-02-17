@@ -79,7 +79,7 @@ const LoginForm = () => {
 
   const handleSignup = () => {
     dispatch(setShowLogin(false))
-    navigate('/signup')
+    navigate('/luo-tili')
   }
 
   return (

@@ -1,21 +1,28 @@
 import { useState, useEffect } from "react"
 import { toast, Toaster } from 'react-hot-toast'
+import { useNavigate } from "react-router-dom"
+
 import { create } from "../services/recipes"
 import FileUpload from "../components/fileUpload"
 //import NewRecipeCard from "../components/newRecipeCard"
+import LoadingButton from "../components/loadingButton"
 
 const AddRecipe = () => {
   const [step, setStep] = useState(1)
   const [progressBar, setProgressBar] = useState(0)
+  const [loading, setLoading] = useState(false)
 
   const [recipeName, setRecipeName] = useState('')
   const [imageFile, setImageFile] = useState(null)
   const [ingredients, setIngredients] = useState([])
   const [instructions, setInstructions] = useState([])
 
+  const navigate = useNavigate()
+
   const handleSubmit = async (event) => {
     event.preventDefault()
     console.log('imageFile', imageFile)
+    setLoading(true)
     try {
       const recipe = {
         name: recipeName,
@@ -25,8 +32,15 @@ const AddRecipe = () => {
       }
       const newRecipe = await create(recipe)
       console.log('new recipe with formdata', newRecipe)
+      toast.success('Resepti luotu onnistuneesti')
+      setTimeout(() => {
+        navigate('/reseptit')
+      }, 4000)
     } catch(error) {
       console.error(error)
+      toast.error('Reseptin luonti epäonnistui. Jokin meni vikaan.')
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -92,6 +106,8 @@ const AddRecipe = () => {
             instructions={instructions}
             ingredients={ingredients}
             imageFile={imageFile}
+            loading={loading}
+            setLoading={setLoading}
           />
         )}
 
@@ -132,12 +148,12 @@ const Step1 = ({ handleNextStep, handlePrevStep, recipeName, setRecipeName, imag
       <div className="flex justify-between mt-5">
         <button 
           type="button" 
-          className="mb-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:cursor-pointer"
+          className="mb-5 w-[100px] text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:cursor-pointer"
           onClick={handlePrevStep}
         >Back</button>
         <button 
           type="button" 
-          className="mb-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:cursor-pointer"
+          className="mb-5 w-[100px] text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:cursor-pointer"
           onClick={checkNextStep}
         >Next</button>
       </div>
@@ -245,12 +261,12 @@ const Step2 = ({ handleNextStep, handlePrevStep, ingredients, setIngredients }) 
       <div className="flex justify-between">
         <button 
           type="button" 
-          className="mb-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:cursor-pointer"
+          className="mb-5 w-[100px] text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:cursor-pointer"
           onClick={handlePrevStep}
         >Back</button>
         <button 
           type="button" 
-          className="mb-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:cursor-pointer"
+          className="mb-5 w-[100px] text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:cursor-pointer"
           onClick={checkNextStep}
         >Next</button>
       </div>
@@ -311,8 +327,8 @@ const Step3 = ({ handleNextStep, handlePrevStep, instructions, setInstructions})
 
 
         {instructions.map((instruction, index) => (
-          <div key={instruction} className="mt-3 flex gap-1 h-[30px]">
-            <p>{index + 1}. {instruction}</p>
+          <div key={instruction} className="mt-3 flex gap-1 min-h-[30px]">
+            <p><span className="bg-gray-300 p-1 rounded-full aspect-square">{index + 1}.</span> {instruction}</p>
             <div
               className="ml-auto hover:cursor-pointer"
               onClick={() => deleteInstruction(index)}
@@ -329,12 +345,12 @@ const Step3 = ({ handleNextStep, handlePrevStep, instructions, setInstructions})
       <div className="flex justify-between">
         <button 
           type="button" 
-          className="mb-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:cursor-pointer"
+          className="mb-5 w-[100px] text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:cursor-pointer"
           onClick={handlePrevStep}
         >Back</button>
         <button 
           type="button" 
-          className="mb-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:cursor-pointer"
+          className="mb-5 w-[100px] text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:cursor-pointer"
           onClick={checkNextStep}
         >Next</button>
       </div>
@@ -343,7 +359,7 @@ const Step3 = ({ handleNextStep, handlePrevStep, instructions, setInstructions})
   )
 }
 
-const Step4 = ({ recipeName, instructions, ingredients, handlePrevStep, imageFile }) => {
+const Step4 = ({ recipeName, instructions, ingredients, handlePrevStep, imageFile, loading }) => {
   const [imageURL, setImageURL] = useState(null)
 
   useEffect(() => {
@@ -357,25 +373,25 @@ const Step4 = ({ recipeName, instructions, ingredients, handlePrevStep, imageFil
 
   return (
     <div>
-      <h3>{recipeName}</h3>
+      <h3 className="text-2xl font-semibold">{recipeName}</h3>
       {imageURL && imageFile && (
-        <img src={imageURL} alt="Recipe" className="max-w-xs mt-2 h-64" />
+        <img src={imageURL} alt="Recipe" className="max-w-xs mt-5 h-64" />
       )}
-      <div className="flex">
-        <div className="w-1/2">
-          <h4>Ohjeet:</h4>
+      <div className="flex flex-col mt-5">
+        <div>
+          <h4 className="text-xl font-semibold mb-5">Ohjeet:</h4>
           {instructions.map((instruction, index) => (
-            <div key={instruction}>
-              <p>{index + 1}. {instruction}</p>
+            <div key={instruction} className="mt-3">
+              <p><span className="bg-gray-300 p-1 rounded-full aspect-square">{index + 1}.</span> {instruction}</p>
             </div>
           ))}
         </div>
 
-        <div className="w-1/2">
-          <h4>Ainesosat:</h4>
-          {ingredients.map((ingredient, index) => (
-            <div key={ingredient.ingredient} className="flex gap-1">
-              <p>{index + 1}. {ingredient.ingredient}</p>
+        <div>
+          <h4 className="text-xl font-semibold mb-5 mt-5">Ainesosat:</h4>
+          {ingredients.map(ingredient => (
+            <div key={ingredient.ingredient} className="flex gap-1 mt-3">
+              <p>- {ingredient.ingredient}</p>
               <p>{ingredient.amount}</p>
               <p>{ingredient.unit}</p>
             </div>
@@ -386,13 +402,18 @@ const Step4 = ({ recipeName, instructions, ingredients, handlePrevStep, imageFil
       <div className="flex justify-between mt-5">
         <button 
           type="button" 
-          className="mb-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:cursor-pointer"
+          className="mb-5 w-[100px] text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:cursor-pointer"
           onClick={handlePrevStep}
         >Back</button>
-        <button 
-          type="submit" 
-          className="mb-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:cursor-pointer"
-        >Save</button>
+        {loading ? (
+          <LoadingButton />
+        ) : (
+          <button 
+            type="submit" 
+            className="mb-5 w-[100px] text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:cursor-pointer"
+          >Tallenna</button>
+        )}
+
       </div>
     </div>
   )
