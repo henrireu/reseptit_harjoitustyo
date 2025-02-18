@@ -3,14 +3,16 @@ import { useNavigate } from "react-router-dom"
 import { toast, Toaster } from 'react-hot-toast'
 
 import { deleteRecipe } from "../services/recipes"
+import LoadingButton from "./loadingButton"
 
 const DeleteRecipeModal = ({ recipe }) => {
   const [isOpen, setIsOpen] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const navigate = useNavigate()
 
   const onDelete = async () => {
-    console.log(recipe)
+    setLoading(true)
     try {
       await deleteRecipe(recipe.id)
       toast.success("Resepti poistettiin onnistuneesti", {
@@ -23,6 +25,8 @@ const DeleteRecipeModal = ({ recipe }) => {
     } catch(error) {
       console.error(error)
       toast.error('Jokin meni vikaan')
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -51,16 +55,20 @@ const DeleteRecipeModal = ({ recipe }) => {
             <div className="flex justify-between mt-4">
               <button
                 onClick={() => setIsOpen(false)}
-                className="bg-gray-300 px-4 py-2 rounded-lg hover:bg-gray-400 transition hover:cursor-pointer"
+                className="bg-gray-300 px-5 py-2.5 rounded-lg hover:bg-gray-400 transition hover:cursor-pointer"
               >
                 Peruuta
               </button>
-              <button
-                onClick={onDelete}
-                className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-800 hover:cursor-pointer transition"
-              >
+              {loading ? (
+                <LoadingButton color='red'/>
+              ) : (
+                <button
+                  onClick={onDelete}
+                  className="bg-red-500 text-white w-[100px] px-5 py-2.5 rounded-lg hover:bg-red-800 hover:cursor-pointer transition"
+                >
                 Poista
-              </button>
+                </button>
+              )}
             </div>
           </div>
         </div>

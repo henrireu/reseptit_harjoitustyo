@@ -11,6 +11,15 @@ recipesRouter.get('/', async (request, response, next) => {
   response.json(recipes)
 })
 
+recipesRouter.get('/latest', async (request, response, next) => {
+  try {
+    const latestRecipes = await Recipe.find().sort({ createdAt: -1 }).limit(3)
+    response.json(latestRecipes)
+  } catch (error) {
+    next(error)
+  } 
+})
+
 recipesRouter.get('/:id', async (request, response, next) => {
   try {
     const recipe = await Recipe.findById(request.params.id)
@@ -23,6 +32,7 @@ recipesRouter.get('/:id', async (request, response, next) => {
     next(error)
   }
 })
+
 
 recipesRouter.post('/', upload.single('image'), async (request, response, next) => {
   try {

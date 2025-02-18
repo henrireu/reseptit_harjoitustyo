@@ -47,11 +47,15 @@ const recipeSchema = mongoose.Schema({
     type: String,
     required: false
   },
+  /*timeUsed: {
+    type: String,
+    required: true
+  },*/
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   }
-})
+}, { timestamps: true })
 
 recipeSchema.set('toJSON', {
   transform: (document, returnedObject) => {

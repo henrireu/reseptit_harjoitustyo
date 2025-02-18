@@ -21,7 +21,6 @@ const AddRecipe = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-    console.log('imageFile', imageFile)
     setLoading(true)
     try {
       const recipe = {
@@ -30,8 +29,7 @@ const AddRecipe = () => {
         instructions: instructions,
         imageFile: imageFile
       }
-      const newRecipe = await create(recipe)
-      console.log('new recipe with formdata', newRecipe)
+      await create(recipe)
       toast.success('Resepti luotu onnistuneesti')
       setTimeout(() => {
         navigate('/reseptit')

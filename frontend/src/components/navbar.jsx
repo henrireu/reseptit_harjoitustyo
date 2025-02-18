@@ -39,19 +39,19 @@ const Navbar = () => {
               className="text-white bg-blue-700 hover:bg-blue-800 hover:cursor-pointer focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               onClick={handleLogin}
             >
-            Log in
+            Kirjaudu sisään
             </button>
           ) : (
             <div className="flex gap-5 items-center">
               <div className="text-gray-900">
-              Welcome, {user.username}
+              Tervetuloa, {user.username}
               </div>
               <button
                 type="button"
                 className="text-white bg-blue-700 hover:bg-blue-800 hover:cursor-pointer focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 onClick={handleLogout}
               >
-              Log out
+              Kirjaudu ulos
               </button>
             </div>
           )}

@@ -27,7 +27,6 @@ const SingleRecipePage = () => {
           ...recipe,
           username: userObject.username
         })
-        //setRecipe(recipe)
         setError('')
         if (user && recipe?.user === user.userId) {
           setOwner(true)
@@ -103,7 +102,7 @@ const SingleRecipePage = () => {
 
 const Ingredients = ({ ingredients }) => {
   return (
-    <div className="w-1/2">
+    <div className="w-full sm:w-1/2">
       <h2 className="text-2xl font-semibold mb-5">Ainekset</h2>
       {ingredients.map(ingredient => (
         <p 
@@ -119,7 +118,7 @@ const Ingredients = ({ ingredients }) => {
 
 const Instructions = ({ instructions }) => {
   return (
-    <div className="w-1/2">
+    <div className="w-full sm:w-1/2">
       <h2 className="text-2xl font-semibold mb-5">Ohjeet</h2>
       {instructions.map((instruction, index) => (
         <p
