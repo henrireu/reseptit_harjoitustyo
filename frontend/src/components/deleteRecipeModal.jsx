@@ -13,10 +13,6 @@ const DeleteRecipeModal = ({ recipe }) => {
     console.log(recipe)
     try {
       await deleteRecipe(recipe.id)
-    } catch(error) {
-      console.error(error)
-      toast.error('Jokin meni vikaan')
-    } finally {
       toast.success("Resepti poistettiin onnistuneesti", {
         position: "bottom-center",
       })
@@ -24,6 +20,9 @@ const DeleteRecipeModal = ({ recipe }) => {
       setTimeout(() => {
         navigate('/')
       },4000)
+    } catch(error) {
+      console.error(error)
+      toast.error('Jokin meni vikaan')
     }
   }
 

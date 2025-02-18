@@ -1,9 +1,12 @@
 import { useEffect } from "react"
-import { Routes, Route } from "react-router-dom"
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
+import { jwtDecode } from "jwt-decode"
+import { toast, Toaster } from 'react-hot-toast'
 
 import { setUser } from "./reducers/userSlice"
 import { setToken } from "./services/recipes"
+import { setShowLogin } from "./reducers/showLoginSlice"
 import Navbar from "./components/navbar"
 import Home from "./pages/home"
 import Login from "./components/login"
@@ -15,20 +18,38 @@ import Recipes from "./pages/recipes"
 const App = () => {
   const showLoginForm = useSelector(state => state.showLogin)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const location = useLocation()
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedRecipeAppUser')
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
-      dispatch(setUser(user))
-      setToken(user.token)
+      const decodedToken = jwtDecode(user.token)
+
+      const currentDate = new Date()
+
+      if (decodedToken.exp * 1000 < currentDate.getTime()) {
+        //token vanhentunut
+        dispatch(setUser(null))
+        setToken(null)
+        window.localStorage.removeItem('loggedRecipeAppUser')
+        navigate('/')
+        toast.error('Kirjautumisistunto on vanhentunut, kirjaudu sisään uudestaan.')
+        setTimeout(() => {
+          dispatch(setShowLogin(true))
+        }, 3000)
+      } else {
+        dispatch(setUser(user))
+        setToken(user.token)
+      }
     }
-  }, [])
+  }, [location])
 
   return (
     <div>
       <Navbar />
-
+      <Toaster />
       {showLoginForm && (
         <Login />
       )}
