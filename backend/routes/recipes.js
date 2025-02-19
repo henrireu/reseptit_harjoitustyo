@@ -35,8 +35,9 @@ recipesRouter.get('/:id', async (request, response, next) => {
 
 
 recipesRouter.post('/', upload.single('image'), async (request, response, next) => {
+  console.log('request body', request.body)
   try {
-    const { name, ingredients, instructions } = request.body
+    const { name, ingredients, instructions, timeUsed } = request.body
 
     if (!request.file) {
       return res.status(400).json({ message: "No image uploaded" })
@@ -61,6 +62,7 @@ recipesRouter.post('/', upload.single('image'), async (request, response, next) 
       name,
       ingredients: parsedIngredients,
       instructions: parsedInstructions,
+      timeUsed: timeUsed,
       imageUrl: request.file.path, 
       imageName: request.file.filename,
       user: user._id,

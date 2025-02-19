@@ -47,10 +47,10 @@ const recipeSchema = mongoose.Schema({
     type: String,
     required: false
   },
-  /*timeUsed: {
+  timeUsed: {
     type: String,
     required: true
-  },*/
+  },
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'

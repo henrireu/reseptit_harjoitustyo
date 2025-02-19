@@ -31,7 +31,7 @@ const Home = () => {
         <div className="w-full sm:w-1/2">
           <h2 className="text-3xl md:text-4xl font-semibold">Tervetuloa!</h2>
           <p className="text-xl md:text-2xl mt-10">
-            Tallenna omat suosikkireseptisi ja inspiroidu muiden luomuksista. Jaa, kokeile ja löydä uusia makuelämyksiä helposti!
+            Tallenna omat suosikkireseptisi ja inspiroidu muiden luomuksista. Löydä, kokeile ja jaa uusia makuelämyksiä helposti!
           </p>
         </div>
       </div>

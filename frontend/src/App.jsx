@@ -14,6 +14,7 @@ import AddRecipe from "./pages/addRecipe"
 import SignUp from "./pages/signUp"
 import SingleRecipePage from "./pages/singleRecipePage"
 import Recipes from "./pages/recipes"
+import EditRecipe from "./pages/editRecipe"
 
 const App = () => {
   const showLoginForm = useSelector(state => state.showLogin)
@@ -26,9 +27,7 @@ const App = () => {
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
       const decodedToken = jwtDecode(user.token)
-
       const currentDate = new Date()
-
       if (decodedToken.exp * 1000 < currentDate.getTime()) {
         //token vanhentunut
         dispatch(setUser(null))
@@ -56,6 +55,7 @@ const App = () => {
 
       <Routes>
         <Route path='/reseptit/:id' element={<SingleRecipePage />} />
+        <Route path='/reseptit/:id/muokkaa' element={<EditRecipe />} />
         <Route path='/' element={<Home />} />
         <Route path='/reseptit' element={<Recipes />} />
         <Route path='/luo-resepti' element={<AddRecipe />} />

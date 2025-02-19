@@ -41,6 +41,7 @@ const create = async newRecipe => {
   const formData = new FormData()
   formData.append("image", newRecipe.imageFile)
   formData.append("name", newRecipe.name)
+  formData.append("timeUsed", newRecipe.timeUsed)
   formData.append("ingredients", JSON.stringify(newRecipe.ingredients))
   formData.append("instructions", JSON.stringify(newRecipe.instructions))
 
