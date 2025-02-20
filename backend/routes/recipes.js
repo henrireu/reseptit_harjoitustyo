@@ -13,7 +13,11 @@ recipesRouter.get('/', async (request, response, next) => {
 
 recipesRouter.get('/latest', async (request, response, next) => {
   try {
-    const latestRecipes = await Recipe.find().sort({ createdAt: -1 }).limit(3)
+    const latestRecipes = await Recipe.find()
+      .sort({ createdAt: -1 })
+      .limit(3)
+      .populate('user', { username: 1, name: 1 }) 
+
     response.json(latestRecipes)
   } catch (error) {
     next(error)
@@ -22,7 +26,7 @@ recipesRouter.get('/latest', async (request, response, next) => {
 
 recipesRouter.get('/:id', async (request, response, next) => {
   try {
-    const recipe = await Recipe.findById(request.params.id)
+    const recipe = await Recipe.findById(request.params.id).populate('user', { username: 1, name: 1 })
     if (recipe){
       response.json(recipe)
     } else {
@@ -105,6 +109,36 @@ recipesRouter.delete('/:id', async (request, response, next) => {
     await Recipe.findByIdAndDelete(request.params.id)
     response.status(204).end()
   } catch(error) {
+    next(error)
+  }
+})
+
+recipesRouter.put('/:id', async (request, response, next) => {
+  try {
+    const decodedToken = jwt.verify(request.token, process.env.SECRET)
+
+    if (!decodedToken.id) {
+      return response.status(401).json({ error: 'token invalid' })
+    }
+
+    const recipe = await Recipe.findById(request.params.id)
+    
+    if (!recipe) {
+      return response.status(404).json({ error: 'Recipe not found' })
+    }
+
+    if (recipe.user.toString() !== decodedToken.id) {
+      return response.status(403).json({ error: 'Unauthorized to update this recipe' })
+    }
+
+    const updatedRecipe = await Recipe.findByIdAndUpdate(
+      request.params.id,
+      request.body,
+      { new: true, runValidators: true } 
+    ).populate('user', { username: 1, name: 1 })
+
+    response.json(updatedRecipe)
+  } catch (error) {
     next(error)
   }
 })

@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import { useSelector } from "react-redux"
 import { toast, Toaster } from 'react-hot-toast'
 
 import { getSingleRecipe } from "../services/recipes"
 import LoadingPage from "../components/loadingPage"
+import { editRecipe } from "../services/recipes"
+import LoadingButton from "../components/loadingButton"
 
 const EditRecipe = () => {
   const [recipeName, setRecipeName] = useState('')
@@ -24,9 +26,11 @@ const EditRecipe = () => {
 
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(true)
+  const [buttonLoading, setButtonLoading] = useState(false)
 
   const { id } = useParams()
   const user = useSelector(state => state.user)
+  const navigate = useNavigate()
 
   useEffect(() => {
     const getRecipe = async () => {
@@ -38,7 +42,7 @@ const EditRecipe = () => {
       try {
         const recipe = await getSingleRecipe(id)
         
-        if (recipe?.user !== user.userId) {
+        if (recipe?.user.id !== user.userId) {
           setError('Sinulla ei ole oikeuksia muokata tätä reseptiä.')
           return
         }  
@@ -64,17 +68,32 @@ const EditRecipe = () => {
     getRecipe()
   }, [id, user])
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
-    const recipe = {
-      name: recipeName,
-      ingredients: ingredients,
-      instructions: instructions,
-      // tämä kohta täytyy muuttaa kun keksit tuon image muokkaus jutun
-      imageUrl: imageUrl,
-      timeUsed: timeUsed
+    setButtonLoading(true)
+    try {
+      const recipe = {
+        name: recipeName,
+        ingredients: ingredients,
+        instructions: instructions,
+        // tämä kohta täytyy muuttaa kun keksit tuon image muokkaus jutun
+        imageUrl: imageUrl,
+        timeUsed: timeUsed
+      }
+  
+      await editRecipe(id, recipe)
+      toast.success('Resepti muokattu onnistuneesti')
+
+      setTimeout(() => {
+        navigate('/reseptit')
+      },3000)
+    } catch (error) {
+      console.error(error)
+      toast.error('Jokin meni vikaan reseptin muokkauksessa.')
+    } finally {
+      setButtonLoading(false)
     }
-    console.log('full recipe:', recipe)
+    
   }
 
   const addIngredient = () => {
@@ -131,7 +150,6 @@ const EditRecipe = () => {
   return (
     <div className="mt-[100px] px-10 pb-10">
       <Toaster />
-      <h1 className="mb-10">Muokkaa reseptiä</h1>
 
       <form className="mx-auto max-w-xl" onSubmit={handleSubmit}>
 
@@ -258,10 +276,14 @@ const EditRecipe = () => {
           />
         </div>
 
-        <button 
-          type="submit" 
-          className="mb-5 w-[100px] text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:cursor-pointer"
-        >Tallenna</button>        
+        {buttonLoading === true ? (
+          <LoadingButton />
+        ) : (
+          <button 
+            type="submit" 
+            className="mb-5 w-[100px] text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:cursor-pointer"
+          >Tallenna</button>  
+        )}      
 
       </form>
     </div>

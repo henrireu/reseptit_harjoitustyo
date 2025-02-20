@@ -72,4 +72,17 @@ const deleteRecipe = async (id) => {
   }
 }
 
-export { create, getAllRecipes, getSingleRecipe, setToken, deleteRecipe, getLatestRecipes }
+const editRecipe = async (id, recipe) => {
+  try {
+    const config = {
+      headers: { Authorization: token },
+    }
+
+    const response = await axios.put(`${baseUrl}/${id}`, recipe, config)
+    return response.data
+  } catch (error) {
+    handleAxiosError(error)
+  }
+}
+
+export { create, getAllRecipes, getSingleRecipe, setToken, deleteRecipe, getLatestRecipes, editRecipe }

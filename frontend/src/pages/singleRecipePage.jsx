@@ -3,7 +3,6 @@ import { useParams, Link } from "react-router-dom"
 import { useSelector } from "react-redux"
 
 import { getSingleRecipe } from "../services/recipes"
-import { getUser } from "../services/users"
 import DeleteRecipeModal from "../components/deleteRecipeModal"
 import ErrorComponent from "../components/errorComponent"
 import LoadingPage from "../components/loadingPage"
@@ -21,14 +20,10 @@ const SingleRecipePage = () => {
     const getRecipe = async () => {
       try {
         const recipe = await getSingleRecipe(id)
-        //haetaan username api kutsulla
-        const userObject = await getUser(recipe.user)
-        setRecipe({
-          ...recipe,
-          username: userObject.username
-        })
+        console.log('recipe', recipe)
+        setRecipe(recipe)
         setError('')
-        if (user && recipe?.user === user.userId) {
+        if (user && recipe?.user.id === user.userId) {
           setOwner(true)
         } else {
           setOwner(false)
@@ -72,7 +67,7 @@ const SingleRecipePage = () => {
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
               </svg>
-              <div className="font-semibold">{recipe.username}</div>
+              <div className="font-semibold">{recipe.user.username}</div>
             </div>
 
             {owner === true && (

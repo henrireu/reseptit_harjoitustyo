@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react"
-import { Link } from "react-router-dom"
 import { useSelector } from "react-redux"
 
 import LoadingPage from "../components/loadingPage"
 import { getAllRecipes } from "../services/recipes"
+import RecipeCard from "../components/recipeCard"
 
 const Recipes = () => {
   const [recipestate, setRecipestate] = useState("kaikki")
@@ -18,6 +18,7 @@ const Recipes = () => {
       setError('')
       try {
         const allRecipes = await getAllRecipes()
+        console.log(allRecipes)
         setRecipes(allRecipes)
       } catch (error) {
         console.error('Error fetching recipes:', error.message)
@@ -83,7 +84,7 @@ const Recipes = () => {
       )}
 
       {recipestate === 'kaikki' ? (
-        <h1 className="text-3xl text-center mb-10 mt-10">Kaikki reseptit</h1>
+        <h1 className="text-3xl text-center mb-10 mt-10">Kaikki reseptit <span className="ml-5 text-2xl">{recipes.length} reseptiä</span></h1>
       ): (
         <h1 className="text-3xl text-center mb-10 mt-10">Omat reseptit</h1>
       )}
@@ -92,38 +93,21 @@ const Recipes = () => {
         <p className="text-red-600 text-2xl text-center">{error}</p>
       )}
 
-      <div className="flex flex-wrap gap-10 items-center justify-center">
+      <div className="flex flex-wrap gap-10 items-center justify-center lg:justify-start">
         {recipestate === "kaikki" ? (
           recipes.map((recipe) => 
-            <SingleRecipe key={recipe.id} recipe={recipe} />
+            <RecipeCard key={recipe.id} recipe={recipe} />
           )
         ) : (
           recipes
             .filter((recipe) => recipe.user.id === user.userId)
             .map((recipe) => (
-              <SingleRecipe key={recipe.id} recipe={recipe} />
+              <RecipeCard key={recipe.id} recipe={recipe} />
             ))
         )}
       </div>
 
       
-    </div>
-  )
-}
-
-const SingleRecipe = ({ recipe }) => {
-  const handleClick = () => {
-    console.log(recipe)
-  }
-  return (
-    <div 
-      className="w-1/1 sm:w-1/4 bg-gray-100 hover:bg-gray-300 rounded-lg shadow-md max-w-[300px] pb-4 hover:cursor-pointer"
-      onClick={handleClick}
-    >
-      <Link to={`/reseptit/${recipe.id}`}>
-        <img src={recipe.imageUrl} className="w-full h-[250px] object-cover"/>
-        <p className="text-center mt-4 font-semibold">{recipe.name}</p>
-      </Link>
     </div>
   )
 }
