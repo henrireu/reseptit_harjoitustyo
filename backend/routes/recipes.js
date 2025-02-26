@@ -39,8 +39,11 @@ recipesRouter.get('/:id', async (request, response, next) => {
 
 
 recipesRouter.post('/', upload.single('image'), async (request, response, next) => {
-  console.log('request body', request.body)
   try {
+    if (!request.token) {
+      return response.status(401).json({ error: 'token missing' })
+    }
+    
     const { name, ingredients, instructions, timeUsed } = request.body
 
     if (!request.file) {

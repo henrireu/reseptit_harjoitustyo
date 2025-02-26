@@ -29,7 +29,7 @@ const Navbar = () => {
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <a className="flex items-center space-x-3 rtl:space-x-reverse">
           <img src={logo} className="h-12 rounded-full" alt="Flowbite Logo" />
-          <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">OmatReseptit</span>
+          <span className="hidden sm:block self-center text-2xl font-semibold whitespace-nowrap dark:text-white">OmatReseptit</span>
         </a>
         <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
 
@@ -43,7 +43,7 @@ const Navbar = () => {
             </button>
           ) : (
             <div className="flex gap-5 items-center">
-              <div className="text-gray-900">
+              <div className="hidden lg:block text-gray-900">
               Tervetuloa, {user.username}
               </div>
               <button

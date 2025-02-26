@@ -2,15 +2,12 @@ require('dotenv').config()
 const { test, after, beforeEach, describe } = require('node:test')
 const mongoose = require('mongoose')
 const supertest = require('supertest')
-const app = require('../app')
+const app = require('../../app')
 const assert = require('node:assert')
 const api = supertest(app)
-const helper = require('./test_helper')
+const helper = require('../test_helper')
 const bcrypt = require('bcrypt')
-const User = require('../models/user')
-
-
-// muuta näitä testejä hieman tai lisää ainakin niitä lopuksi
+const User = require('../../models/user')
 
 describe('when there is initially one user at db', () => {
   beforeEach(async () => {
@@ -67,5 +64,37 @@ describe('when there is initially one user at db', () => {
     assert(result.body.error.includes('expected `username` to be unique'))
 
     assert.strictEqual(usersAtEnd.length, usersAtStart.length)
+  })
+
+  test('login succeeds with proper username and password', async () => {
+    const user = {
+      username: 'root',
+      password: 'sekret'
+    }
+    const response = await api
+      .post('/api/login')
+      .send(user)
+      .expect(200)
+
+    assert(response.body.token, 'Response should contain a token')
+  })
+
+  test('login fails with wrong username or password', async () => {
+    const user = {
+      username: 'root',
+      password: 'sekrettt'
+    }
+
+    const response = await api
+      .post('/api/login')
+      .send(user)
+      .expect(401)
+
+    assert(!response.body.token, 'Response should not contain a token')
+    
+  })
+
+  after(async () => {
+    await mongoose.connection.close()
   })
 })
