@@ -20,6 +20,7 @@ jobs:
 
       - name: Set permissions for cross-env
         run: chmod +x ./node_modules/.bin/cross-env
+        working-directory: ./backend
 
       - name: Run tests
         run: npm run test
