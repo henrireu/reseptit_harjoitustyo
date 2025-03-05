@@ -6,10 +6,11 @@ import { getAllRecipes } from "../services/recipes"
 import RecipeCard from "../components/recipeCard"
 
 const Recipes = () => {
-  const [recipestate, setRecipestate] = useState("kaikki")
+  const [recipestate, setRecipestate] = useState('kaikki')
   const [loading, setLoading] = useState(true)
   const [recipes, setRecipes] = useState([])
   const [error, setError] = useState('')
+  const [search, setSearch] = useState('')
 
   const user = useSelector(state => state.user)
 
@@ -18,7 +19,6 @@ const Recipes = () => {
       setError('')
       try {
         const allRecipes = await getAllRecipes()
-        console.log(allRecipes)
         setRecipes(allRecipes)
       } catch (error) {
         console.error('Error fetching recipes:', error.message)
@@ -40,54 +40,27 @@ const Recipes = () => {
   return (
     <div className="mt-[100px] px-10 max-w-[1400px] mx-auto mb-10">
 
-      {user && (
-        <div className="flex justify-center gap-10">
-          <div className="flex items-center ps-4 border border-gray-200 rounded-sm dark:border-gray-700">
-            <input
-              id="bordered-radio-1"
-              type="radio"
-              value="kaikki"
-              name="recipes"
-              checked={recipestate === "kaikki"}
-              onChange={(e) => setRecipestate(e.target.value)}
-              className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-            />
-            <label
-              htmlFor="bordered-radio-1"
-              className="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-            >
-            Kaikki reseptit
-            </label>
-          </div>
-
-        
-          <div className="flex items-center ps-4 border border-gray-200 rounded-sm dark:border-gray-700">
-            <input
-              id="bordered-radio-2"
-              type="radio"
-              value="omat"
-              name="recipes"
-              checked={recipestate === "omat"}
-              onChange={(e) => setRecipestate(e.target.value)}
-              className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-            />
-            <label
-              htmlFor="bordered-radio-2"
-              className="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-            >
-              Omat reseptit
-            </label>
-          </div>
-        
-    
+      <div className="flex justify-center gap-10 mb-10">
+        <div 
+          className={`cursor-pointer text-2xl font-medium pb-1 hover:border-b-2 ${
+            recipestate === 'kaikki' && 'border-b-2'
+          }`}
+          onClick={() => setRecipestate('kaikki')}
+        >
+          <p>Kaikki reseptit</p>
         </div>
-      )}
 
-      {recipestate === 'kaikki' ? (
-        <h1 className="text-3xl text-center mb-10 mt-10">Kaikki reseptit <span className="ml-5 text-2xl">{recipes.length} reseptiä</span></h1>
-      ): (
-        <h1 className="text-3xl text-center mb-10 mt-10">Omat reseptit</h1>
-      )}
+        <div 
+          className={`cursor-pointer text-2xl font-medium pb-1 hover:border-b-2 ${
+            recipestate === 'omat' && 'border-b-2'
+          }`}
+          onClick={() => setRecipestate('omat')}
+        >
+          <p>Omat reseptit</p>
+        </div>
+      </div>
+
+      <SearchForm search={search} setSearch={setSearch}/>
 
       {error !== '' && (
         <p className="text-red-600 text-2xl text-center">{error}</p>
@@ -95,12 +68,27 @@ const Recipes = () => {
 
       <div className="flex flex-wrap gap-10 items-center justify-center lg:justify-start">
         {recipestate === "kaikki" ? (
-          recipes.map((recipe) => 
-            <RecipeCard key={recipe.id} recipe={recipe} />
-          )
+          recipes
+            .filter((recipe) => 
+              search.length > 2 
+                ? recipe.name.toLowerCase().includes(search.toLowerCase()) 
+                : true 
+            )
+            .map((recipe) => 
+              <RecipeCard key={recipe.id} recipe={recipe} />
+            )
+        ) : recipestate === "omat" && user === null ? (
+          <div className="text-xl w-full flex justify-center">
+            <p className="bg-gray-200 p-4 rounded">Kirjaudu sisään nähdäksesi omat reseptit!</p>
+          </div>
         ) : (
           recipes
             .filter((recipe) => recipe.user.id === user.userId)
+            .filter((recipe) => 
+              search.length > 2 
+                ? recipe.name.toLowerCase().includes(search.toLowerCase()) 
+                : true 
+            )
             .map((recipe) => (
               <RecipeCard key={recipe.id} recipe={recipe} />
             ))
@@ -109,6 +97,49 @@ const Recipes = () => {
 
       
     </div>
+  )
+}
+
+const SearchForm = ({ search, setSearch }) => {
+  return (
+    <form className="max-w-xl mx-auto mb-10">
+      <label
+        htmlFor="default-search"
+        className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
+      >
+        Search
+      </label>
+      <div className="relative">
+
+        <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+          <svg
+            className="w-4 h-4 text-gray-500 dark:text-gray-400"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 20 20"
+          >
+            <path
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+            />
+          </svg>
+        </div>
+
+        <input
+          type="search"
+          id="default-search"
+          className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          placeholder="Etsi resepti..."
+          value={search}
+          onChange={({ target }) => setSearch(target.value)}
+        />
+
+      </div>
+    </form>
   )
 }
 
