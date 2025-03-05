@@ -3,7 +3,7 @@ name: Backend pipeline
 on:
   push:
     branches:
-      -main
+      - main
 
 jobs:
   backend_deployment_pipeline:
