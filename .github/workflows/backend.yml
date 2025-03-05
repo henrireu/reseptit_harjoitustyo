@@ -18,6 +18,9 @@ jobs:
         run: npm install
         working-directory: ./backend
 
+      - name: Set permissions for cross-env
+        run: chmod +x ./node_modules/.bin/cross-env
+
       - name: Run tests
         run: npm run test
         working-directory: ./backend
