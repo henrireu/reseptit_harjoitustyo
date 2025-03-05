@@ -19,7 +19,7 @@ jobs:
         working-directory: ./backend
 
       - name: Check style
-        run: npm run eslint
+        run: npx eslint .
         working-directory: ./backend
 
       - name: Run tests
