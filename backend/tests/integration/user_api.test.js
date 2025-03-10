@@ -6,7 +6,8 @@ const app = require('../../app')
 const assert = require('node:assert')
 const api = supertest(app)
 const helper = require('../test_helper')
-const bcrypt = require('bcrypt')
+//const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 const User = require('../../models/user')
 
 describe('when there is initially one user at db', () => {
