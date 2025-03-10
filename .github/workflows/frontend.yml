@@ -1,0 +1,23 @@
+name: Frontend pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  frontend_deployment_pipeline:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+        
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./frontend
+
+      - name: Run tests
+        run: npm test
+        working-directory: ./frontend
