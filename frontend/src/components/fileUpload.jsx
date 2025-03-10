@@ -3,6 +3,8 @@ const FileUpload = ({ file, setFile }) => {
   const allowedFileTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/svg+xml']
   const MAX_FILE_SIZE = 2 * 1024 * 1024
 
+  console.log('file', file)
+
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0]
     if (selectedFile) {
