@@ -134,10 +134,10 @@ const AddRecipe = () => {
 const Step1 = ({ handleNextStep, handlePrevStep, recipeName, setRecipeName, imageFile, setImageFile }) => {
   const checkNextStep = () => {
     if (recipeName.length < 3) {
-      toast.error('Recipe name must be at least 3 characters')
+      toast.error('Reseptin nimi täytyy olla vähintään 3 merkkiä pitkä')
       return 
     } else if (imageFile === null) {
-      toast.error('You must upload image for recipe')
+      toast.error('Kuva on pakollinen')
       return
     } else {
       handleNextStep()
@@ -146,12 +146,12 @@ const Step1 = ({ handleNextStep, handlePrevStep, recipeName, setRecipeName, imag
   return (
     <>
       <div className="mb-5">
-        <label htmlFor="recipeName" className="block mb-2 text-md font-medium text-gray-900 dark:text-white">Recipe name</label>
+        <label htmlFor="recipeName" className="block mb-2 text-md font-medium text-gray-900 dark:text-white">Reseptin nimi</label>
         <input 
           type="text" 
           id="recipeName" 
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-          placeholder="recipe name" 
+          placeholder="Reseptin nimi" 
           required 
           value={recipeName}
           onChange={({ target }) => setRecipeName(target.value)}
@@ -167,12 +167,12 @@ const Step1 = ({ handleNextStep, handlePrevStep, recipeName, setRecipeName, imag
           type="button" 
           className="mb-5 w-[100px] text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:cursor-pointer"
           onClick={handlePrevStep}
-        >Back</button>
+        >Takaisin</button>
         <button 
           type="button" 
           className="mb-5 w-[100px] text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:cursor-pointer"
           onClick={checkNextStep}
-        >Next</button>
+        >Seuraava</button>
       </div>
 
     </>
@@ -280,12 +280,12 @@ const Step2 = ({ handleNextStep, handlePrevStep, ingredients, setIngredients }) 
           type="button" 
           className="mb-5 w-[100px] text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:cursor-pointer"
           onClick={handlePrevStep}
-        >Back</button>
+        >Takaisin</button>
         <button 
           type="button" 
           className="mb-5 w-[100px] text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:cursor-pointer"
           onClick={checkNextStep}
-        >Next</button>
+        >Seuraava</button>
       </div>
             
     </>
@@ -327,7 +327,7 @@ const Step3 = ({ handleNextStep, handlePrevStep, instructions, setInstructions})
           <input 
             type="text" 
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-            placeholder="instruction" 
+            placeholder="ohjeet" 
             required 
             value={instruction}
             onChange={({ target }) => setInstruction(target.value)}
@@ -367,12 +367,12 @@ const Step3 = ({ handleNextStep, handlePrevStep, instructions, setInstructions})
           type="button" 
           className="mb-5 w-[100px] text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:cursor-pointer"
           onClick={handlePrevStep}
-        >Back</button>
+        >Takaisin</button>
         <button 
           type="button" 
           className="mb-5 w-[100px] text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:cursor-pointer"
           onClick={checkNextStep}
-        >Next</button>
+        >Seuraava</button>
       </div>
             
     </>
@@ -410,12 +410,12 @@ const Step4 = ({ timeUsed, setTimeUsed, handleNextStep, handlePrevStep }) => {
           type="button" 
           className="mb-5 w-[100px] text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:cursor-pointer"
           onClick={handlePrevStep}
-        >Back</button>
+        >Takaisin</button>
         <button 
           type="button" 
           className="mb-5 w-[100px] text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:cursor-pointer"
           onClick={checkNextStep}
-        >Next</button>
+        >Seuraava</button>
       </div>
     </>
   )
@@ -478,7 +478,7 @@ const Step5 = ({ recipeName, instructions, ingredients, handlePrevStep, imageFil
           type="button" 
           className="mb-5 w-[100px] text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:cursor-pointer"
           onClick={handlePrevStep}
-        >Back</button>
+        >Takaisin</button>
         {loading ? (
           <LoadingButton />
         ) : (

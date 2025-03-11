@@ -151,7 +151,7 @@ const EditRecipe = () => {
 
   const addInstruction = () => {
     if (instruction.length < 3) {
-      toast.error('Instruction must be at least 3 characters long')
+      toast.error('Ohjeen täytyy olla vähintään 3 merkkiä pitkä.')
       return
     } else {
       setInstructions(instructions.concat(instruction))
@@ -182,12 +182,12 @@ const EditRecipe = () => {
       <form className="mx-auto max-w-xl" onSubmit={handleSubmit}>
 
         <div className="mb-5">
-          <label htmlFor="recipeName" className="block mb-2 text-md font-medium text-gray-900 dark:text-white">Recipe name</label>
+          <label htmlFor="recipeName" className="block mb-2 text-md font-medium text-gray-900 dark:text-white">Reseptin nimi</label>
           <input 
             type="text" 
             id="recipeName" 
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-            placeholder="recipe name" 
+            placeholder="reseptin nimi" 
             required 
             value={recipeName}
             onChange={({ target }) => setRecipeName(target.value)}
@@ -288,7 +288,7 @@ const EditRecipe = () => {
             <input 
               type="text" 
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-              placeholder="instruction" 
+              placeholder="Ohje" 
               value={instruction}
               onChange={({ target }) => setInstruction(target.value)}
             />

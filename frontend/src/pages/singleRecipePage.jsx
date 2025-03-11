@@ -9,6 +9,7 @@ import LoadingPage from "../components/loadingPage"
 
 const SingleRecipePage = () => {
   const [recipe, setRecipe] = useState(null)
+  const [createdAt, setCreatedAt] = useState('')
   const [owner, setOwner] = useState(false)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(true)
@@ -22,6 +23,10 @@ const SingleRecipePage = () => {
         const recipe = await getSingleRecipe(id)
         console.log('recipe', recipe)
         setRecipe(recipe)
+
+        const createdDate = new Date(recipe.createdAt)
+        const formattedDate = createdDate.toLocaleDateString ('fi-FI')
+        setCreatedAt(formattedDate)
         setError('')
         if (user && recipe?.user.id === user.userId) {
           setOwner(true)
@@ -57,18 +62,26 @@ const SingleRecipePage = () => {
       <div className="px-2 sm:px-10 mt-10">
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-center">{recipe.name}</h1>
 
-        <Owner owner={owner} />
-        
-        <div className="max-w-[1400px] mx-auto mt-10 bg-gray-100 p-6">
+        <div className="mt-5 flex gap-1 justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-7">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+          </svg>
+          <div className="font-semibold text-lg">{recipe.timeUsed}</div>
+        </div>
 
+        <div className="flex justify-center">
+          <div className="inline-flex justify-center mt-5 gap-1 bg-green-100 p-3 rounded-full">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+            </svg>
+            <div className="font-semibold">{recipe.user.username}</div>
+          </div>
+        </div>
+        
+        <div className="max-w-[1400px] mx-auto mt-5 bg-gray-100 p-6">
           <div className="flex mb-4 items-center justify-between">
 
-            <div className="flex gap-1">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
-              </svg>
-              <div className="font-semibold">{recipe.user.username}</div>
-            </div>
+            <div className="font-semibold">{createdAt}</div>
 
             {owner === true && (
               <div className="flex gap-3">
@@ -130,25 +143,6 @@ const Instructions = ({ instructions }) => {
       ))}
     </div>
   )
-}
-
-const Owner = ({ owner }) => {
-
-  if (owner) {
-    return (
-      <div>
-
-        <div className="mt-5 bg-green-100 p-2 w-[200px] mx-auto flex items-center justify-center gap-2 rounded-full">
-          <p className="text-lg text-center">Reseptin tekijä</p>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-          </svg>
-
-        </div>
-      </div>
-      
-    )
-  }
 }
 
 export default SingleRecipePage
