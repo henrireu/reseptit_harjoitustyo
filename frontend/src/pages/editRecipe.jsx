@@ -3,17 +3,16 @@ import { useParams, useNavigate } from "react-router-dom"
 import { useSelector } from "react-redux"
 import { toast, Toaster } from 'react-hot-toast'
 
-import { getSingleRecipe } from "../services/recipes"
+import { getSingleRecipe, editRecipe, editRecipeWithImage } from "../services/recipes"
 import LoadingPage from "../components/loadingPage"
-import { editRecipe } from "../services/recipes"
+//import { editRecipe } from "../services/recipes"
 import LoadingButton from "../components/loadingButton"
 import FileUpload from "../components/fileUpload"
 
 const EditRecipe = () => {
   const [recipeName, setRecipeName] = useState('')
-  //tee myöhemmin että pysty poistamaan kuvan ja vaihtamaan sen
-  //const [imageFile, setImageFile] = useState(null)
   const [imageUrl, setImageUrl] = useState('')
+  const [imageName, setImageName] = useState('')
 
   const [ingredients, setIngredients] = useState([])
   const [ingredient, setIngredient] = useState('')
@@ -48,12 +47,11 @@ const EditRecipe = () => {
           setError('Sinulla ei ole oikeuksia muokata tätä reseptiä.')
           return
         }  
-
-        console.log('recipe', recipe)
         
         setError('')
         setRecipeName(recipe.name)
         setImageUrl(recipe.imageUrl)
+        setImageName(recipe.imageName)
         setIngredients(recipe.ingredients)
         setInstructions(recipe.instructions)
         // muokkaa tämä myöhemmin samanlaiseksi kuin muut
@@ -100,7 +98,28 @@ const EditRecipe = () => {
         setButtonLoading(false)
       }
     } else {
-      window.alert('tee myöhemmin tämä osa loppuun kun vaihtaa kuvaa')
+      // tässä tehdään se jos tarvitsee muokata kuvaa
+      setButtonLoading(true)
+      try {
+        const recipe = {
+          name: recipeName,
+          ingredients: ingredients,
+          instructions: instructions,
+          imageFile: imageFile,
+          timeUsed: timeUsed
+        }
+
+        await editRecipeWithImage(id, recipe, imageName)
+        toast.success('Resepti muokattu onnistuneesti')
+        setTimeout(() => {
+          navigate('/reseptit')
+        },3000)
+      } catch (error) {
+        console.error(error)
+        toast.error('Jokin meni vikaan reseptin muokkauksessa.')
+      } finally {
+        setButtonLoading(false)
+      }
     }
     
   }

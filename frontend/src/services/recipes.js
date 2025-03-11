@@ -85,4 +85,28 @@ const editRecipe = async (id, recipe) => {
   }
 }
 
-export { create, getAllRecipes, getSingleRecipe, setToken, deleteRecipe, getLatestRecipes, editRecipe }
+const editRecipeWithImage = async (id, recipe, imageName) => {
+  const formData = new FormData()
+  formData.append("image", recipe.imageFile)
+  formData.append("name", recipe.name)
+  formData.append("timeUsed", recipe.timeUsed)
+  formData.append("ingredients", JSON.stringify(recipe.ingredients))
+  formData.append("instructions", JSON.stringify(recipe.instructions))
+  formData.append("oldImageName", imageName)
+
+  try {
+    const config = {
+      headers: { 
+        "Content-Type": "multipart/form-data",
+        Authorization: token 
+      },
+    }
+
+    const response = await axios.put(`${baseUrl}/${id}/image`, formData, config)
+    return response.data
+  } catch (error) {
+    handleAxiosError(error)
+  }
+}
+
+export { create, getAllRecipes, getSingleRecipe, setToken, deleteRecipe, getLatestRecipes, editRecipe, editRecipeWithImage }

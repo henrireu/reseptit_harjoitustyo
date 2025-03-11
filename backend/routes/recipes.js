@@ -47,7 +47,7 @@ recipesRouter.post('/', upload.single('image'), async (request, response, next) 
     const { name, ingredients, instructions, timeUsed } = request.body
 
     if (!request.file) {
-      return res.status(400).json({ message: "No image uploaded" })
+      return response.status(400).json({ message: "No image uploaded" })
     }
 
     const decodedToken = jwt.verify(request.token, process.env.SECRET)
@@ -142,6 +142,60 @@ recipesRouter.put('/:id', async (request, response, next) => {
 
     response.json(updatedRecipe)
   } catch (error) {
+    next(error)
+  }
+})
+
+recipesRouter.put('/:id/image', upload.single('image'), async (request, response, next) => {
+  try {
+    if (!request.token) {
+      return response.status(401).json({ error: 'token missing' })
+    }
+    
+    const { name, ingredients, instructions, timeUsed, oldImageName } = request.body
+
+    if (!request.file) {
+      return response.status(400).json({ message: "No image uploaded" })
+    }
+
+    const decodedToken = jwt.verify(request.token, process.env.SECRET)
+  
+    if (!decodedToken.id) {
+      return response.status(401).json({ error: 'token invalid' })
+    }
+    const user = await User.findById(decodedToken.id)
+
+    if (!user) {
+      return response.status(404).json({ error: 'User not found' })
+    }
+
+
+    const parsedIngredients = JSON.parse(ingredients)
+    const parsedInstructions = JSON.parse(instructions)
+
+
+    const updatedRecipe = await Recipe.findByIdAndUpdate(
+      request.params.id,
+      {
+        name,
+        ingredients: parsedIngredients,
+        instructions: parsedInstructions,
+        timeUsed,
+        imageUrl: request.file.path, 
+        imageName: request.file.filename,
+      },
+      { new: true, runValidators: true }
+    ).populate('user', { username: 1, name: 1 })
+
+    if (!updatedRecipe) {
+      return response.status(404).json({ error: 'Recipe not found' })
+    }
+
+    const cloudinaryResult = await cloudinary.uploader.destroy(oldImageName)
+    console.log('cloudinaryResult',cloudinaryResult)
+
+    response.json(updatedRecipe)
+  } catch(error) {
     next(error)
   }
 })
