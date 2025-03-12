@@ -1,6 +1,8 @@
 import axios from 'axios'
 import handleAxiosError from './errorHandling'
-const baseUrl = 'http://localhost:3001/api/recipes'
+//const baseUrl = 'http://localhost:3001/api/recipes'
+const apiUrl = import.meta.env.VITE_API_URL
+const baseUrl = `${apiUrl}/api/recipes`
 
 let token = null
 

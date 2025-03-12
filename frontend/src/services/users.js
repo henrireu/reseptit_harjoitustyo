@@ -1,6 +1,8 @@
 import axios from 'axios'
 import handleAxiosError from './errorHandling'
-const baseUrl = 'http://localhost:3001/api/users'
+//const baseUrl = 'http://localhost:3001/api/users'
+const apiUrl = import.meta.env.VITE_API_URL
+const baseUrl = `${apiUrl}/api/users`
 
 const getAll = async () => {
   try {
