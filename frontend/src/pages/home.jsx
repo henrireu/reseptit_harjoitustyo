@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 
+
 import recipeImage from "../assets/reseptikuva.jpg"
 import { getLatestRecipes } from "../services/recipes"
 import RecipeCard from "../components/recipeCard"
