@@ -28,3 +28,7 @@ jobs:
         env:
           TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
           SECRET: ${{ secrets.SALAISUUS }}
+
+      - name: Deploy to Render
+        run: |
+          curl -X POST "https://api.render.com/deploy/srv-XXXXX?key=${{ secrets.RENDER_API_KEY }}"
