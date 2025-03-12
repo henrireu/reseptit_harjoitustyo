@@ -30,5 +30,7 @@ jobs:
           SECRET: ${{ secrets.SALAISUUS }}
 
       - name: Deploy to Render
+        env:
+          deploy_url: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
         run: |
-          curl -X POST "https://api.render.com/deploy/srv-XXXXX?key=${{ secrets.RENDER_API_KEY }}"
+          curl "$deploy_url"
