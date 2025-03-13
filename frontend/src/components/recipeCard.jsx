@@ -11,7 +11,15 @@ const RecipeCard = ({ recipe }) => {
       <Link to={`/reseptit/${recipe.id}`}>
         <img src={recipe.imageUrl} className="w-full h-[250px] object-cover"/>
         <p className="text-center mt-4 font-semibold">{recipe.name}</p>
-        <div className="flex justify-between px-3 pt-3">
+
+        <div className="mt-3 flex gap-1 justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+          </svg>
+          <div className="font-semibold text-md">{recipe.timeUsed}</div>
+        </div>
+
+        <div className="flex justify-between px-3 mt-2">
           <p>{formattedDate}</p>
           <div className="flex items-center">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5">

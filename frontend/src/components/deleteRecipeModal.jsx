@@ -46,7 +46,7 @@ const DeleteRecipeModal = ({ recipe }) => {
       </div>
 
       {isOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center">
           <div className="bg-white p-6 rounded-lg shadow-lg w-96 text-center">
             <h2 className="text-xl font-semibold">Oletko varma?</h2>
             <p className="text-gray-600 my-1">Haluatko varmasti poistaa reseptin:</p>

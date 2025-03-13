@@ -6,22 +6,34 @@ import { useNavigate } from "react-router-dom"
 import { login } from "../services/login"
 import { setUser } from "../reducers/userSlice"
 import { create } from "../services/users"
+import LoadingButton from "../components/loadingButton"
 
 const SignUp = () => {
   const [username, setUsername] = useState('')
   const [name, setName] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+  const [loading, setLoading] = useState(false)
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
+  const isValidPassword = (password) => {
+    return /^(?=.*[\d!@#$%^&*]).{6,}$/.test(password);
+  }
+
   const handleSubmit = async (event) => {
     event.preventDefault()
     if(password !== confirmPassword) {
-      toast.error('Passwords do not match!')
+      toast.error('Salasanat eivät täsmää!')
       return
     }
+    if(!isValidPassword(password)) {
+      toast.error('Salasanan tulee olla vähintään 5 merkkiä pitkä ja sisältää vähintään yksi numero tai erikoismerkki.')
+      return
+    }
+    
+    setLoading(true)
     try {
       await create({
         username: username,
@@ -35,7 +47,7 @@ const SignUp = () => {
         })
         dispatch(setUser(user))
         console.log(user)
-        toast.success(`User ${username} created succesfully`)
+        toast.success(`Käyttäjä ${username} luotu onnistuneesti`)
         setUsername('')
         setName('')
         setPassword('')
@@ -51,10 +63,12 @@ const SignUp = () => {
       console.error(error.message)
   
       if (error.message.includes("expected `username` to be unique")) {
-        toast.error('Username is already taken')
+        toast.error('Käyttäjänimi on varattu')
       } else {
         toast.error(`Error: ${error.message}`)
       }
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -66,12 +80,12 @@ const SignUp = () => {
       <form onSubmit={handleSubmit} className="mx-auto max-w-xl">
 
         <div className="mb-5">
-          <label htmlFor="username" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your username*</label>
+          <label htmlFor="username" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Käyttäjänimi*</label>
           <input 
             type="text" 
             id="username" 
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-            placeholder="username" 
+            placeholder="Käyttäjänimi" 
             required 
             value={username}
             onChange={({ target }) => setUsername(target.value)}
@@ -79,12 +93,12 @@ const SignUp = () => {
         </div>
 
         <div className="mb-5">
-          <label htmlFor="fullname" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your full name*</label>
+          <label htmlFor="fullname" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Koko nimesi*</label>
           <input 
             type="text" 
             id="fullname" 
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-            placeholder="full name" 
+            placeholder="Koko nimesi" 
             required 
             value={name}
             onChange={({ target }) => setName(target.value)}
@@ -92,7 +106,7 @@ const SignUp = () => {
         </div>
 
         <div className="mb-5">
-          <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your password*</label>
+          <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Salasana*</label>
           <input 
             type="password" 
             id="password" 
@@ -104,7 +118,7 @@ const SignUp = () => {
         </div>
 
         <div className="mb-5">
-          <label htmlFor="confirmPassword" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password*</label>
+          <label htmlFor="confirmPassword" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Vahvista salasana*</label>
           <input 
             type="password" 
             id="confirmPassword" 
@@ -115,10 +129,14 @@ const SignUp = () => {
           />
         </div>
 
-        <button 
-          type="submit" 
-          className="mb-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:cursor-pointer"
-        >Submit</button>
+        {loading === true ? (
+          <LoadingButton />
+        ) : (
+          <button 
+            type="submit" 
+            className="mb-5 w-[100px] text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:cursor-pointer"
+          >Luo tili</button>
+        )}
 
       </form>
     </div>

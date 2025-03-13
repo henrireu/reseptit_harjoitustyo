@@ -21,7 +21,6 @@ const SingleRecipePage = () => {
     const getRecipe = async () => {
       try {
         const recipe = await getSingleRecipe(id)
-        console.log('recipe', recipe)
         setRecipe(recipe)
 
         const createdDate = new Date(recipe.createdAt)
@@ -102,7 +101,7 @@ const SingleRecipePage = () => {
         
           </div>
 
-          <div className="flex flex-col sm:flex-row px-1 sm:px-6 gap-2">
+          <div className="flex flex-col lg:flex-row px-1 sm:px-6 gap-2">
             <Ingredients ingredients={recipe.ingredients}/>
             <Instructions instructions={recipe.instructions}/>
           </div>
@@ -113,17 +112,22 @@ const SingleRecipePage = () => {
   )
 }
 
-const Ingredients = ({ ingredients }) => {
-  return (
-    <div className="w-full sm:w-1/2">
-      <h2 className="text-2xl font-semibold mb-5">Ainekset</h2>
-      {ingredients.map(ingredient => (
-        <p 
+{/*<p 
           key={ingredient.ingredient}
           className="text-lg ml-2 mb-2"
         >
           - {ingredient.amount} {ingredient.unit} {ingredient.ingredient}
-        </p>
+        </p>*/}
+
+const Ingredients = ({ ingredients }) => {
+  return (
+    <div className="w-full lg:w-1/2">
+      <h2 className="text-2xl font-semibold mb-5">Ainekset</h2>
+      {ingredients.map(ingredient => (
+        <div key={ingredient.ingredient} className="text-lg ml-2 mb-2 flex gap-1">
+          <span className="w-24">- {ingredient.amount} {ingredient.unit}</span>
+          <span>{ingredient.ingredient}</span>
+        </div>
       ))}
     </div>
   )
@@ -131,7 +135,7 @@ const Ingredients = ({ ingredients }) => {
 
 const Instructions = ({ instructions }) => {
   return (
-    <div className="w-full sm:w-1/2">
+    <div className="w-full lg:w-1/2">
       <h2 className="text-2xl font-semibold mb-5">Ohjeet</h2>
       {instructions.map((instruction, index) => (
         <p
