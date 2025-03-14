@@ -176,7 +176,7 @@ const EditRecipe = () => {
   }
 
   return (
-    <div className="mt-[100px] px-10 pb-10">
+    <div className="pt-[100px] px-10 pb-10">
       <Toaster />
 
       <form className="mx-auto max-w-xl" onSubmit={handleSubmit}>

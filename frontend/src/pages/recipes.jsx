@@ -38,7 +38,7 @@ const Recipes = () => {
   }
 
   return (
-    <div className="mt-[100px] px-10 max-w-[1400px] mx-auto mb-10">
+    <div className="pt-[100px] px-10 max-w-[1400px] mx-auto pb-10">
 
       <div className="flex justify-center gap-10 mb-10">
         <div 
@@ -66,7 +66,7 @@ const Recipes = () => {
         <p className="text-red-600 text-2xl text-center">{error}</p>
       )}
 
-      <div className="flex flex-wrap gap-10 items-center justify-center lg:justify-start">
+      <div className="flex flex-wrap gap-10 items-center justify-center">
         {recipestate === "kaikki" ? (
           recipes
             .filter((recipe) => 

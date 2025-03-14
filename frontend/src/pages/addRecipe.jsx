@@ -59,7 +59,7 @@ const AddRecipe = () => {
   }
 
   return (
-    <div className="mt-[100px] px-10">
+    <div className="pt-[100px] px-10">
       <h1 className="text-3xl font-medium mb-7 text-center">Lisää resepti</h1>
 
       <Toaster />

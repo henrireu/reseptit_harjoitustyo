@@ -56,7 +56,7 @@ const SingleRecipePage = () => {
   }
 
   return (
-    <div className="mt-[80px] max-w-[1600px] mx-auto pb-10">
+    <div className="pt-[80px] max-w-[1600px] mx-auto pb-10">
       <img src={recipe.imageUrl} className="w-full h-[calc(100vh-300px)] object-cover"/>
       <div className="px-2 sm:px-10 mt-10">
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-center">{recipe.name}</h1>
@@ -111,13 +111,6 @@ const SingleRecipePage = () => {
     </div>
   )
 }
-
-{/*<p 
-          key={ingredient.ingredient}
-          className="text-lg ml-2 mb-2"
-        >
-          - {ingredient.amount} {ingredient.unit} {ingredient.ingredient}
-        </p>*/}
 
 const Ingredients = ({ ingredients }) => {
   return (

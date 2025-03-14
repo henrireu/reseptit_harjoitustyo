@@ -74,7 +74,7 @@ const SignUp = () => {
 
 
   return (
-    <div className="mt-[100px] px-10">
+    <div className="pt-[100px] px-10">
       <h1 className="text-3xl mb-7 text-center">Sign up</h1>
       <Toaster />
       <form onSubmit={handleSubmit} className="mx-auto max-w-xl">
