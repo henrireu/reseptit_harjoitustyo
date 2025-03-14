@@ -60,7 +60,7 @@ const Home = () => {
           </div>
         )}
 
-        <div className="flex flex-wrap gap-10 items-center justify-center mt-10">
+        <div className="flex flex-wrap gap-10 justify-between items-centerr justify-centerr mt-10">
           {latestRecipes.map(recipe => (
             <RecipeCard key={recipe.id} recipe={recipe} />
           ))}
