@@ -8,6 +8,7 @@ const errorHandler = require('./middleware/errorHandler')
 const usersRouter = require('./routes/users')
 const recipesRouter = require('./routes/recipes')
 const loginRouter = require('./routes/login')
+const reviewsRouter = require('./routes/reviews')
 const { tokenExtractor } = require('./middleware/authMiddleware')
 
 console.log('connecting to mongodb')
@@ -26,10 +27,10 @@ mongoose.connect(MONGODB_URI)
   })
 
 app.use(tokenExtractor)
-//testaan workflow vaan
 app.use('/api/users', usersRouter)
 app.use('/api/recipes', recipesRouter)
 app.use('/api/login', loginRouter)
+app.use('/api/reviews', reviewsRouter)
 app.use(errorHandler)
 
 module.exports = app

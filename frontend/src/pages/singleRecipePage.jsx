@@ -6,6 +6,7 @@ import { getSingleRecipe } from "../services/recipes"
 import DeleteRecipeModal from "../components/deleteRecipeModal"
 import ErrorComponent from "../components/errorComponent"
 import LoadingPage from "../components/loadingPage"
+import Reviews from "../components/reviews"
 
 const SingleRecipePage = () => {
   const [recipe, setRecipe] = useState(null)
@@ -107,6 +108,8 @@ const SingleRecipePage = () => {
           </div>
         </div>
 
+        <Reviews id={1} />
+
       </div>
     </div>
   )
@@ -119,7 +122,7 @@ const Ingredients = ({ ingredients }) => {
       {ingredients.map(ingredient => (
         <div key={ingredient.ingredient} className="text-lg ml-2 mb-2 flex gap-1">
           <span className="w-24">- {ingredient.amount} {ingredient.unit}</span>
-          <span>{ingredient.ingredient}</span>
+          <span className="break-all">{ingredient.ingredient}</span>
         </div>
       ))}
     </div>

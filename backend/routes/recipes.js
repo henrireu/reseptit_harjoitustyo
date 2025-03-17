@@ -6,7 +6,9 @@ const Recipe = require('../models/recipe')
 const User = require('../models/user')
 
 recipesRouter.get('/', async (request, response, next) => {
-  const recipes = await Recipe.find({}).populate('user', { username: 1, name: 1 })
+  const recipes = await Recipe.find({})
+    .sort({ createdAt: -1 })
+    .populate('user', { username: 1, name: 1 })
 
   response.json(recipes)
 })
