@@ -43,7 +43,10 @@ const ReviewForm = ({leaveForm, recipeId}) => {
 
     } catch (error) {
       console.error(error)
-      toast.error('Arvostelun luonti epäonnistui. Jokin meni vikaan.')     
+      toast.error('Jokin meni vikaan. Et voi arvostella samaa reseptiä kahta kertaa.')
+      setTimeout(() => {
+        leaveForm()
+      }, 3000)
     } finally {
       setLoading(false)
     }
