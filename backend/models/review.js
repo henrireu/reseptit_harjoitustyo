@@ -20,7 +20,7 @@ const reviewSchema = mongoose.Schema({
   comment: String
 }, { timestamps: true })
 
-reviewSchema.index({ recipeId: 1, userId: 1 }, { unique: true })
+reviewSchema.index({ recipeId: 1, user: 1 }, { unique: true })
 
 reviewSchema.set('toJSON', {
   transform: (document, returnedObject) => {

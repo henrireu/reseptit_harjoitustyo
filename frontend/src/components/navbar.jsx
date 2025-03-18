@@ -4,6 +4,7 @@ import logo from '../assets/foodIcon.jpg'
 import { useDispatch, useSelector } from 'react-redux'
 import { setUser } from "../reducers/userSlice"
 import { setShowLogin } from "../reducers/showLoginSlice"
+import { setToken } from "../services/recipes"
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -21,6 +22,7 @@ const Navbar = () => {
     console.log('logout')
     dispatch(setUser(null))
     window.localStorage.removeItem('loggedRecipeAppUser')
+    setToken(null)
     navigate('/')
   }
 

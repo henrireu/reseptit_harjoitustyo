@@ -10,6 +10,10 @@ const setToken = newToken => {
   token = `Bearer ${newToken}`
 }
 
+const getToken = () => {
+  return token
+}
+
 const getAllRecipes = async () => {
   try {
     const response = await axios.get(baseUrl)
@@ -111,4 +115,4 @@ const editRecipeWithImage = async (id, recipe, imageName) => {
   }
 }
 
-export { create, getAllRecipes, getSingleRecipe, setToken, deleteRecipe, getLatestRecipes, editRecipe, editRecipeWithImage }
+export { create, getAllRecipes, getSingleRecipe, setToken, deleteRecipe, getLatestRecipes, editRecipe, editRecipeWithImage, getToken }

@@ -3,10 +3,12 @@ import { useParams, Link } from "react-router-dom"
 import { useSelector } from "react-redux"
 
 import { getSingleRecipe } from "../services/recipes"
+import { getRecipeReviews } from "../services/reviews"
 import DeleteRecipeModal from "../components/deleteRecipeModal"
 import ErrorComponent from "../components/errorComponent"
 import LoadingPage from "../components/loadingPage"
 import Reviews from "../components/reviews"
+import RatingStars from "../components/ratingStars"
 
 const SingleRecipePage = () => {
   const [recipe, setRecipe] = useState(null)
@@ -14,6 +16,8 @@ const SingleRecipePage = () => {
   const [owner, setOwner] = useState(false)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(true)
+
+  const [reviews, setReviews] = useState([])
 
   const { id } = useParams()
   const user = useSelector(state => state.user)
@@ -41,7 +45,17 @@ const SingleRecipePage = () => {
       }
     }
 
+    const getReviews = async () => {
+      try {
+        const reviews = await getRecipeReviews(id)
+        setReviews(reviews)
+      } catch(error) {
+        console.error(error)
+      }
+    }
+
     getRecipe()
+    getReviews()
   }, [id, user])
 
   if (loading) {
@@ -70,7 +84,11 @@ const SingleRecipePage = () => {
         </div>
 
         <div className="flex justify-center">
-          <div className="inline-flex justify-center mt-5 gap-1 bg-green-100 p-3 rounded-full">
+          <RatingStars reviews={reviews} />
+        </div>
+
+        <div className="flex justify-center mt-2">
+          <div className="inline-flex justify-center gap-1 bg-green-100 p-3 rounded-full">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
               <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
             </svg>
@@ -108,7 +126,7 @@ const SingleRecipePage = () => {
           </div>
         </div>
 
-        <Reviews id={1} />
+        <Reviews reviews={reviews} recipeUserId={recipe.user.id} recipeId={id}/>
 
       </div>
     </div>

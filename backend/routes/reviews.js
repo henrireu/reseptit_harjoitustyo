@@ -3,6 +3,7 @@ const reviewsRouter = require('express').Router()
 
 const Review = require('../models/review')
 const User = require('../models/user')
+const Recipe = require('../models/recipe')
 
 reviewsRouter.get('/', async (request, response) => {
   const reviews = await Review.find({})
@@ -35,20 +36,28 @@ reviewsRouter.post('/', async (request, response, next) => {
     }
 
     const decodedToken = jwt.verify(request.token, process.env.SECRET)
-
     if (!decodedToken.id) {
       return response.status(401).json({ error: 'token invalid' })
     }
 
     const user = await User.findById(decodedToken.id)
-
-    console.log('user:', user)
-
     if (!user) {
       return response.status(404).json({ error: 'User not found' })
     }
 
     const { rating, comment, recipeId } = request.body
+
+    const recipe = await Recipe.findById(recipeId)
+
+    const recipeUserId = recipe.user._id.toString()
+    const userId = user._id.toString()
+    
+    console.log('userId', userId)
+    console.log('recipe userid', userId)
+
+    if (userId === recipeUserId) {
+      return response.status(403).json({ error: 'The creator of the recipe cannot review their own recipe.' })
+    }
 
     const review = new Review({
       rating,
