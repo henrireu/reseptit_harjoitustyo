@@ -3,7 +3,7 @@ import { countAverageRating } from "../helpers/reviewHelper"
 const RatingStars = ({reviews}) => {
   const average = countAverageRating(reviews)
   return (
-    <div className="flex">
+    <div className="flex h-[35px]">
       <StarRow number={average}/>
       <p className="text-xl ml-2 mt-1">{`(${reviews.length})`}</p>
     </div>

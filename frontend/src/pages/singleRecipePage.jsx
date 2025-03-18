@@ -76,25 +76,29 @@ const SingleRecipePage = () => {
       <div className="px-2 sm:px-10 mt-10">
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-center">{recipe.name}</h1>
 
-        <div className="mt-5 flex gap-1 justify-center">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-7">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-          </svg>
-          <div className="font-semibold text-lg">{recipe.timeUsed}</div>
-        </div>
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-10 my-3 sm:my-10">
 
-        <div className="flex justify-center">
-          <RatingStars reviews={reviews} />
-        </div>
-
-        <div className="flex justify-center mt-2">
-          <div className="inline-flex justify-center gap-1 bg-green-100 p-3 rounded-full">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+          <div className="flex gap-1">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-7">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
             </svg>
-            <div className="font-semibold">{recipe.user.username}</div>
+            <div className="font-semibold text-lg">{recipe.timeUsed}</div>
           </div>
+
+          <div className="flex">
+            <div className="inline-flex justify-center gap-1 bg-green-100 p-3 rounded-full">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+              </svg>
+              <div className="font-semibold">{recipe.user.username}</div>
+            </div>
+          </div>
+
+          <RatingStars reviews={reviews} />
+
         </div>
+
+        
         
         <div className="max-w-[1400px] mx-auto mt-5 bg-gray-100 p-6">
           <div className="flex mb-4 items-center justify-between">

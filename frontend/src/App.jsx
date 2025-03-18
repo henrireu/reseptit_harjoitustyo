@@ -46,7 +46,7 @@ const App = () => {
   }, [location])
 
   return (
-    <div className="bg-gray-50 text-gray-900 min-h-screen">
+    <div className="text-gray-900 min-h-screen">
       <Navbar />
       <Toaster />
       {showLoginForm && (

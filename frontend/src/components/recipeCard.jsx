@@ -1,12 +1,34 @@
 import { Link } from "react-router-dom"
+import { useEffect, useState } from "react"
+import { getRecipeReviews } from "../services/reviews"
+import RatingStars from "./ratingStars"
 
 const RecipeCard = ({ recipe }) => {
+  const [reviews, setReviews] = useState(null)
+  const [loading, setLoading] = useState(false)
+
   const createdDate = new Date(recipe.createdAt)
   const formattedDate = createdDate.toLocaleDateString ('fi-FI')
 
+  useEffect(() => {
+    const getReviews = async () => {
+      setLoading(true)
+      try {
+        const reviews = await getRecipeReviews(recipe.id)
+        setReviews(reviews)
+      } catch (error) {
+        console.error(error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    getReviews()
+  }, [])
+
   return (
     <div 
-      className="bg-gray-300 hover:bg-gray-400 rounded-lg shadow-md pb-4 hover:cursor-pointer w-[300px] sm:w-[330px]"
+      className="bg-gray-100 hover:bg-gray-200 rounded-lg shadow-md pb-4 hover:cursor-pointer w-[300px] sm:w-[330px]"
     >
       <Link to={`/reseptit/${recipe.id}`}>
         <img src={recipe.imageUrl} className="w-full h-[250px] object-cover"/>
@@ -18,6 +40,16 @@ const RecipeCard = ({ recipe }) => {
           </svg>
           <div className="font-semibold text-md">{recipe.timeUsed}</div>
         </div>
+
+        {loading === true ? (
+          <div className="h-[35px]"></div>
+        ) : reviews !== null ? (
+          <div className="flex justify-center">
+            <RatingStars reviews={reviews} />
+          </div>
+        ) : (
+          <div className="h-[35px]"></div>
+        )}
 
         <div className="flex justify-between px-3 mt-2">
           <p>{formattedDate}</p>
