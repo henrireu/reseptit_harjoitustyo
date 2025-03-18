@@ -17,8 +17,6 @@ reviewsRouter.get('/:recipeId', async (request, response, next) => {
   try {
     const { recipeId } = request.params  
 
-    console.log(request.params)
-
     const reviews = await Review.find({ recipeId })
       .sort({ createdAt: -1 }) 
       .populate('user', { username: 1, name: 1 })  
@@ -45,15 +43,20 @@ reviewsRouter.post('/', async (request, response, next) => {
       return response.status(404).json({ error: 'User not found' })
     }
 
+    if (!user._id) {
+      return response.status(400).json({ error: 'User ID is missing or invalid' })
+    }
+
     const { rating, comment, recipeId } = request.body
 
     const recipe = await Recipe.findById(recipeId)
 
+    if (!recipe) {
+      return response.status(404).json({ error: 'Recipe not found' })
+    }
+
     const recipeUserId = recipe.user._id.toString()
     const userId = user._id.toString()
-    
-    console.log('userId', userId)
-    console.log('recipe userid', userId)
 
     if (userId === recipeUserId) {
       return response.status(403).json({ error: 'The creator of the recipe cannot review their own recipe.' })

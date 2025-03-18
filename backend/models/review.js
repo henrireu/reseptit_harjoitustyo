@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
 
-//jatka myöhemmin
 const reviewSchema = mongoose.Schema({
   recipeId: {
     type: mongoose.Schema.Types.ObjectId,
