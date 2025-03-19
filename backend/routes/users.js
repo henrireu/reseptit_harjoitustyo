@@ -20,7 +20,7 @@ usersRouter.get('/:id', async (request, response, next) => {
 
 usersRouter.post('/', async (request, response, next) => {
   try {
-    const { username, name, password } = request.body
+    let { username, name, password } = request.body
 
     if (!username || !password) {
       return response.status(400).json({ error: 'Username and password required' })
@@ -28,6 +28,8 @@ usersRouter.post('/', async (request, response, next) => {
 
     const saltRounds = 10
     const passwordHash = await bcrypt.hash(password, saltRounds)
+
+    username = username.toLowerCase()
 
     const user = new User({
       username,

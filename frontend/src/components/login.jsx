@@ -61,6 +61,7 @@ const LoginForm = () => {
       
       dispatch(setUser(user))
       dispatch(setShowLogin(false))
+      navigate('/')
     } catch(error) {
       console.error(error)
       if (error.response && error.response.status === 401) {
