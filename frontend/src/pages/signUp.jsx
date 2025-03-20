@@ -7,6 +7,7 @@ import { login } from "../services/login"
 import { setUser } from "../reducers/userSlice"
 import { create } from "../services/users"
 import LoadingButton from "../components/loadingButton"
+import { setToken } from "../services/recipes"
 
 const SignUp = () => {
   const [username, setUsername] = useState('')
@@ -46,7 +47,8 @@ const SignUp = () => {
           username, password
         })
         dispatch(setUser(user))
-        console.log(user)
+        //laita se setToken tässä kanssa
+        setToken(user.token)
         toast.success(`Käyttäjä ${username} luotu onnistuneesti`)
         setUsername('')
         setName('')

@@ -1,13 +1,12 @@
 import { useState } from "react"
 import { useSelector } from "react-redux"
 
-//import { getRecipeReviews } from "../services/reviews"
+
 import { countAverageRating, formatDate } from "../helpers/reviewHelper"
 
 import ReviewForm from "./reviewForm"
 
 const Reviews = ({ reviews, recipeUserId, recipeId }) => {
-  //const [reviews, setReviews] = useState([])
   const [showForm, setShowForm] = useState(false)
 
   const user = useSelector(state => state.user)
@@ -15,16 +14,6 @@ const Reviews = ({ reviews, recipeUserId, recipeId }) => {
   const leaveForm = () => {
     setShowForm(false)
   }
-
-  /*const fetchData = async () => {
-    try {
-      const response = await getRecipeReviews(id)
-      console.log('reviews', response)
-      setReviews(response)
-    } catch (error) {
-      console.error("Error fetching reviews:", error)
-    }
-  }*/
 
   return (
     <div className="border-t border-b mt-10 py-5">
@@ -39,7 +28,6 @@ const Reviews = ({ reviews, recipeUserId, recipeId }) => {
             <RatingStars reviews={reviews}/>
           )}
 
-          {/* tee myöhemmin että näkyy vain kirjautuneille */}
           {user && recipeUserId !== user.userId && (
             <div 
               className="flex text-white bg-blue-700 hover:bg-blue-800 hover:cursor-pointer focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
@@ -68,9 +56,10 @@ const Reviews = ({ reviews, recipeUserId, recipeId }) => {
 
 const SingleReview = ({review}) => {
   const date = formatDate(review.createdAt)
+  console.log('review', review)
   return (
     <div className="flex flex-col sm:flex-row border gap-2 sm:gap-5 p-5 rounded mt-2">
-      <div className="flex flex-col justify-between">
+      <div className="flex flex-col justify-between w-[175px]">
         <div>
           <StarRow number={review.rating}/>
         </div>
@@ -78,13 +67,18 @@ const SingleReview = ({review}) => {
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
             <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
           </svg>
-          <p className="ms-1 font-semibold">{review.user.username}</p>
+          {review.user ? (
+            <p className="ms-1 font-semibold break-all">{review.user.username}</p>
+          ) : (
+            <p className="ms-1 font-semibold">{`(Poistettu käyttäjä)`}</p>
+          )}
+        
         </div>
       </div>
 
-      <div className="break-words max-w-[800px] flex flex-col justify-between">
-        <p>{review.comment}</p>
-        <p className="font-semibold mt-2">{date}</p>
+      <div className="break-words max-w-[800px] flex flex-col justify-between ml-0 sm:ml-10">
+        <p className="font-semibold">{date}</p>
+        <p className="mt-2">{review.comment}</p>
       </div>
       
     </div>

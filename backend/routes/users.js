@@ -45,12 +45,12 @@ usersRouter.post('/', async (request, response, next) => {
   }
 })
 
-usersRouter.delete('/:id', async (request, response) => {
+usersRouter.delete('/:id', async (request, response, next) => {
   try {
     if (!request.token) {
-      return response.status(401).json({ error: 'Token missing or invalid' })
+      return response.status(401).json({ error: 'Token missing' })
     }
-
+ 
     const decodedToken = jwt.verify(request.token, process.env.SECRET)
 
     if (decodedToken) {
@@ -72,7 +72,7 @@ usersRouter.delete('/:id', async (request, response) => {
     
   } catch (error) {
     console.error(error)
-    response.status(500).json({ error: 'Something went wrong' })
+    next(error)
   }
 })
 
