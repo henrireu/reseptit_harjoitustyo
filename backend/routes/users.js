@@ -16,7 +16,7 @@ usersRouter.get('/:id', async (request, response, next) => {
   } catch (error) {
     next(error)
   }
-})
+}) 
 
 usersRouter.post('/', async (request, response, next) => {
   try {
