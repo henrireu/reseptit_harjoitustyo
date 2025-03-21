@@ -42,8 +42,6 @@ const getLatestRecipes = async () => {
 }
 
 const create = async newRecipe => {
-  console.log('new recipe', newRecipe)
-
   const formData = new FormData()
   formData.append("image", newRecipe.imageFile)
   formData.append("name", newRecipe.name)

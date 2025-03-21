@@ -211,7 +211,7 @@ const Step2 = ({ handleNextStep, handlePrevStep, ingredients, setIngredients }) 
 
   const checkNextStep = () => {
     if(ingredients.length < 1) {
-      toast.error('Must have at least on ingredient')
+      toast.error('Täytyy olla vähintään yksi ainesosa')
     } else {
       handleNextStep()
     }
@@ -243,7 +243,7 @@ const Step2 = ({ handleNextStep, handlePrevStep, ingredients, setIngredients }) 
           <input 
             type="text" 
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/6 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-            placeholder="Mittayksikkö" 
+            placeholder="Mitta" 
             value={unit}
             onChange={({ target }) => setUnit(target.value)}
           />
@@ -297,7 +297,7 @@ const Step3 = ({ handleNextStep, handlePrevStep, instructions, setInstructions})
 
   const addInstruction = () => {
     if (instruction.length < 3) {
-      toast.error('Instruction must be at least 3 characters long')
+      toast.error('Ohjeen täytyy olla vähintään 3 merkkiä pitkä.')
       return
     } else {
       setInstructions(instructions.concat(instruction))
@@ -311,7 +311,7 @@ const Step3 = ({ handleNextStep, handlePrevStep, instructions, setInstructions})
 
   const checkNextStep = () => {
     if(instructions.length < 1) {
-      toast.error('Must have at least one instruction')
+      toast.error('Täytyy olla vähintään yksi ohje')
       return
     } else {
       handleNextStep()

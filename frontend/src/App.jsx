@@ -15,6 +15,7 @@ import SignUp from "./pages/signUp"
 import SingleRecipePage from "./pages/singleRecipePage"
 import Recipes from "./pages/recipes"
 import EditRecipe from "./pages/editRecipe"
+import EditProfile from "./pages/editProfile"
 
 const App = () => {
   const showLoginForm = useSelector(state => state.showLogin)
@@ -60,6 +61,7 @@ const App = () => {
         <Route path='/reseptit' element={<Recipes />} />
         <Route path='/luo-resepti' element={<AddRecipe />} />
         <Route path='/luo-tili' element={<SignUp />} />
+        <Route path='/muokkaa-profiilia' element={<EditProfile />} />
       </Routes>
       
     </div>

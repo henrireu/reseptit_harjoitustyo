@@ -56,7 +56,6 @@ const Reviews = ({ reviews, recipeUserId, recipeId }) => {
 
 const SingleReview = ({review}) => {
   const date = formatDate(review.createdAt)
-  console.log('review', review)
   return (
     <div className="flex flex-col sm:flex-row border gap-2 sm:gap-5 p-5 rounded mt-2">
       <div className="flex flex-col justify-between w-[175px]">

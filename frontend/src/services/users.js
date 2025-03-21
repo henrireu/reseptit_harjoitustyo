@@ -1,6 +1,7 @@
 import axios from 'axios'
 import handleAxiosError from './errorHandling'
-//const baseUrl = 'http://localhost:3001/api/users'
+import { getToken } from './recipes'
+
 const apiUrl = import.meta.env.VITE_API_URL
 const baseUrl = `${apiUrl}/api/users`
 
@@ -33,4 +34,22 @@ const create = async newUser => {
 
 }
 
-export { getAll, create, getUser }
+const deleteUser = async userId => {
+  const token = getToken()
+  try {
+    const config = {
+      headers: { 
+        "Content-Type": "application/json", 
+        Authorization: token 
+      }
+    }
+
+    const response = await axios.delete(`${baseUrl}/${userId}`, config)
+    
+    return response.data
+  } catch(error) {
+    handleAxiosError(error)
+  }
+}
+
+export { getAll, create, getUser, deleteUser }
