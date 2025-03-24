@@ -5,9 +5,9 @@ import { toast, Toaster } from 'react-hot-toast'
 
 import { getSingleRecipe, editRecipe, editRecipeWithImage } from "../services/recipes"
 import LoadingPage from "../components/loadingPage"
-//import { editRecipe } from "../services/recipes"
 import LoadingButton from "../components/loadingButton"
 import FileUpload from "../components/fileUpload"
+import Input from "../components/input"
 
 const EditRecipe = () => {
   const [recipeName, setRecipeName] = useState('')
@@ -73,6 +73,19 @@ const EditRecipe = () => {
   const handleSubmit = async (event) => {
     event.preventDefault()
 
+    if(recipeName.length < 3) {
+      toast.error('Reseptin nimi täytyy olla vähintään 3 kirjainta pitkä.')
+      return
+    }
+    if(ingredients.length < 1) {
+      toast.error('Täytyy olla vähintään yksi ainesosa.')
+      return
+    }
+    if(instructions.length < 1) {
+      toast.error('Täytyy olla vähintään yksi ohje')
+      return
+    }
+
     if (changeImage === false) {
       setButtonLoading(true)
       try {
@@ -80,7 +93,6 @@ const EditRecipe = () => {
           name: recipeName,
           ingredients: ingredients,
           instructions: instructions,
-          // tämä kohta täytyy muuttaa kun keksit tuon image muokkaus jutun
           imageUrl: imageUrl,
           timeUsed: timeUsed
         }
@@ -182,15 +194,13 @@ const EditRecipe = () => {
       <form className="mx-auto max-w-xl" onSubmit={handleSubmit}>
 
         <div className="mb-5">
-          <label htmlFor="recipeName" className="block mb-2 text-md font-medium text-gray-900 dark:text-white">Reseptin nimi</label>
-          <input 
-            type="text" 
-            id="recipeName" 
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-            placeholder="reseptin nimi" 
-            required 
+          <Input 
+            label="Reseptin nimi"
+            type="text"
+            placeholder="Reseptin nimi"
+            required={true}
             value={recipeName}
-            onChange={({ target }) => setRecipeName(target.value)}
+            setValue={setRecipeName}
           />
         </div>
  
@@ -230,37 +240,48 @@ const EditRecipe = () => {
         ))}
 
         <div className="flex space-x-2 mt-5 pb-5 border-b border-gray-300">
+          <div className="w-4/6">
+            <Input 
+              label="Nimi"
+              type="text"
+              placeholder="Ainesosan nimi"
+              required={false}
+              value={ingredient}
+              setValue={setIngredient}
+              size="4/6"
+            />
+          </div>
 
-          <input 
-            type="text" 
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-4/6 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-            placeholder="Ainesosan nimi" 
-            value={ingredient}
-            onChange={({ target }) => setIngredient(target.value)}
-          />
+          <div className="w-1/6">
+            <Input 
+              label="Määrä"
+              type="text"
+              placeholder="Määrä"
+              required={false}
+              value={amount}
+              setValue={setAmount}
+              size="1/6"
+            />
+          </div>
 
-          <input 
-            type="text" 
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/6 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-            placeholder="Määrä" 
-            value={amount}
-            onChange={({ target }) => setAmount(target.value)}
-          />
-
-          <input 
-            type="text" 
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/6 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-            placeholder="Mittayksikkö" 
-            value={unit}
-            onChange={({ target }) => setUnit(target.value)}
-          />
+          <div className="w-1/6">
+            <Input 
+              label="Mitta"
+              type="text"
+              placeholder="Mitta"
+              required={false}
+              value={unit}
+              setValue={setUnit}
+              size="1/6"
+            />
+          </div>
 
           <button 
             type="button"
-            className="bg-blue-500 text-white px-3 py-2 rounded-lg hover:bg-blue-600 transition hover:cursor-pointer"
+            className="bg-blue-500 h-1/2 mt-auto text-white px-3 py-2 rounded-lg hover:bg-blue-600 transition hover:cursor-pointer"
             onClick={addIngredient}
           >
-          +
+                +
           </button>
         </div>
 
@@ -284,18 +305,20 @@ const EditRecipe = () => {
             </div>
           ))}
 
-          <div className="mb-5 mt-5 flex gap-1">
-            <input 
-              type="text" 
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-              placeholder="Ohje" 
-              value={instruction}
-              onChange={({ target }) => setInstruction(target.value)}
-            />
+          <div className="my-5 flex gap-1">
+            <div className="w-full">
+              <Input 
+                type="text"
+                placeholder="Ohjeet"
+                required={false}
+                value={instruction}
+                setValue={setInstruction}
+              />
+            </div>
 
             <button
               type="button"
-              className="bg-blue-500 text-white px-3 py-2 rounded-lg hover:bg-blue-600 transition hover:cursor-pointer"
+              className="bg-blue-500 h-1/2 mt-auto text-white px-3 py-2 rounded-lg hover:bg-blue-600 transition hover:cursor-pointer"
               onClick={addInstruction}
             >
                 +
@@ -305,15 +328,13 @@ const EditRecipe = () => {
         </div>
 
         <div className="mb-5">
-          <label htmlFor="timeUsed" className="block mb-2 text-md font-medium text-gray-900 dark:text-white">Arvioitu valmistusaika</label>
-          <input 
-            type="text" 
-            id="timeUsed" 
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-            placeholder="Valmistusaika" 
-            required 
+          <Input 
+            label="Arvioitu valmistusaika"
+            type="text"
+            placeholder="Valmistusaika"
+            required={true}
             value={timeUsed}
-            onChange={({ target }) => setTimeUsed(target.value)}
+            setValue={setTimeUsed}
           />
         </div>
 

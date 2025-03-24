@@ -8,6 +8,7 @@ import { setUser } from "../reducers/userSlice"
 import { create } from "../services/users"
 import LoadingButton from "../components/loadingButton"
 import { setToken } from "../services/recipes"
+import Input from "../components/input"
 
 const SignUp = () => {
   const [username, setUsername] = useState('')
@@ -76,57 +77,51 @@ const SignUp = () => {
 
   return (
     <div className="pt-[100px] px-10">
-      <h1 className="text-3xl mb-7 text-center">Sign up</h1>
+      <h1 className="text-3xl mb-7 text-center">Luo tili</h1>
       <Toaster />
       <form onSubmit={handleSubmit} className="mx-auto max-w-xl">
 
         <div className="mb-5">
-          <label htmlFor="username" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Käyttäjänimi*</label>
-          <input 
-            type="text" 
-            id="username" 
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-            placeholder="Käyttäjänimi" 
-            required 
+          <Input 
+            label="Käyttäjänimi*"
+            type="text"
+            placeholder="Käyttäjänimi"
+            required={true}
             value={username}
-            onChange={({ target }) => setUsername(target.value)}
+            setValue={setUsername}
           />
         </div>
 
         <div className="mb-5">
-          <label htmlFor="fullname" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Koko nimesi*</label>
-          <input 
+          <Input 
+            label="Koko nimesi*" 
             type="text" 
-            id="fullname" 
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
             placeholder="Koko nimesi" 
-            required 
-            value={name}
-            onChange={({ target }) => setName(target.value)}
+            required={true} 
+            value={name} 
+            setValue={setName} 
           />
         </div>
 
         <div className="mb-5">
-          <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Salasana*</label>
-          <input 
+          <Input 
+            label="Salasana*" 
             type="password" 
-            id="password" 
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-            required 
-            value={password}
-            onChange={({ target }) => setPassword(target.value)}
+            placeholder="Salasana" 
+            required={true} 
+            value={password} 
+            setValue={setPassword} 
           />
         </div>
 
         <div className="mb-5">
-          <label htmlFor="confirmPassword" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Vahvista salasana*</label>
-          <input 
+          <Input 
+            label="Vahvista salasana*" 
             type="password" 
-            id="confirmPassword" 
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-            required 
-            value={confirmPassword}
-            onChange={({ target }) => setConfirmPassword(target.value)}
+            placeholder="Vahvista salasana" 
+            required={true} 
+            value={confirmPassword} 
+            setValue={setConfirmPassword} 
           />
         </div>
 
