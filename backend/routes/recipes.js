@@ -4,6 +4,7 @@ const recipesRouter = require('express').Router()
 const { upload, cloudinary } = require('../config/cloudinary')
 const Recipe = require('../models/recipe')
 const User = require('../models/user')
+const Review = require('../models/review')
 
 recipesRouter.get('/', async (request, response, next) => {
   const recipes = await Recipe.find({})
@@ -106,10 +107,11 @@ recipesRouter.delete('/:id', async (request, response, next) => {
       return response.status(403).json({ error: 'Unauthorized to delete this recipe' })
     }
 
-    console.log('recipe', recipe)
+    await cloudinary.uploader.destroy(recipe.imageName)
 
-    const cloudinaryResult = await cloudinary.uploader.destroy(recipe.imageName)
-    console.log('cloudinaryResult',cloudinaryResult)
+    /*tästä lähtee poistetun käyttäjän reseptien poisto*/
+
+    await Review.deleteMany({ recipeId: request.params.id })
 
     await Recipe.findByIdAndDelete(request.params.id)
     response.status(204).end()

@@ -60,13 +60,13 @@ const DeleteRecipeModal = ({ recipe }) => {
                 Peruuta
               </button>
               {loading ? (
-                <LoadingButton color='red'/>
+                <LoadingButton color="red" />
               ) : (
                 <button
                   onClick={onDelete}
-                  className="bg-red-500 text-white w-[100px] px-5 py-2.5 rounded-lg hover:bg-red-800 hover:cursor-pointer transition"
+                  className="px-5 py-2.5 bg-red-600 text-white rounded-lg hover:bg-red-700 cursor-pointer w-[100px] focus:ring-4 focus:outline-none focus:ring-red-300 font-medium text-sm text-center dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-700"
                 >
-                Poista
+                Poista 
                 </button>
               )}
             </div>

@@ -80,7 +80,7 @@ const EditProfile = () => {
               ): (
                 <button
                   onClick={handleDeleteProfile}
-                  className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 cursor-pointer w-[120px]"
+                  className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 cursor-pointer w-[120px] focus:ring-4 focus:outline-none focus:ring-red-300 font-medium text-sm text-center dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-700"
                 >
                 Kyllä, poista
                 </button>
