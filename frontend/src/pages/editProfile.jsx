@@ -12,6 +12,7 @@ import Button from '../components/button'
 const EditProfile = () => {
   const [showConfirmationModal, setShowConfirmationModal] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [buttonDisabled, setButtonDisabled] = useState(false)
 
   const user = useSelector((state) => state.user)
   const dispatch = useDispatch()
@@ -30,6 +31,7 @@ const EditProfile = () => {
     try {
       await deleteUser(user.userId)
       toast.success('Käyttäjä poistettu onnistuneesti.')
+      setButtonDisabled(true)
 
       setTimeout(() => {
         dispatch(setUser(null))
@@ -73,7 +75,7 @@ const EditProfile = () => {
               {loading === true ? (
                 <LoadingButton width="w-[120px]" color="red"/>
               ): (
-                <Button handleClick={handleDeleteProfile} type="button" text="Kyllä, poista" width="w-[120px]" color="red" />
+                <Button handleClick={handleDeleteProfile} type="button" text="Kyllä, poista" width="w-[120px]" color="red" disabled={buttonDisabled} />
               )}
               <Button handleClick={() => setShowConfirmationModal(false)} text="Peruuta" type="button" color="gray" />
             </div>

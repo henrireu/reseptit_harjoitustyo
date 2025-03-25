@@ -11,6 +11,7 @@ const ReviewForm = ({leaveForm, recipeId}) => {
   const [comment, setComment] = useState("")
 
   const [loading, setLoading] = useState(false)
+  const [buttonDisabled, setButtonDisabled] = useState(false)
 
   const navigate = useNavigate()
 
@@ -36,6 +37,7 @@ const ReviewForm = ({leaveForm, recipeId}) => {
       await createReview(review)
       
       toast.success('Arvostelu luotu onnistuneesti.')
+      setButtonDisabled(true)
 
       setTimeout(() => {
         navigate(`/reseptit/${recipeId}`)
@@ -45,6 +47,7 @@ const ReviewForm = ({leaveForm, recipeId}) => {
     } catch (error) {
       console.error(error)
       toast.error('Jokin meni vikaan. Et voi arvostella samaa reseptiä kahta kertaa.')
+      setButtonDisabled(true)
       setTimeout(() => {
         leaveForm()
       }, 3000)
@@ -152,7 +155,7 @@ const ReviewForm = ({leaveForm, recipeId}) => {
         {loading === true ? (
           <LoadingButton color='orange' width="w-[100px]"/>
         ) : (
-          <Button handleClick={handleCreate} type="button" text="Lähetä" width="w-[100px]" color="orange"/>
+          <Button handleClick={handleCreate} type="button" text="Lähetä" width="w-[100px]" color="orange" disabled={buttonDisabled} />
           
         )}
 

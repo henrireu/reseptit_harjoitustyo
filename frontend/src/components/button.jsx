@@ -1,4 +1,4 @@
-const Button = ({ text, type, width, height, color, handleClick }) => {
+const Button = ({ text, type, width, height, color, handleClick, disabled }) => {
   let background = 'bg-blue-700'
   let hover = 'hover:bg-blue-800'
   let focus = 'focus:ring-blue-300'
@@ -6,6 +6,7 @@ const Button = ({ text, type, width, height, color, handleClick }) => {
   let darkHover = 'dark:hover:bg-blue-700'
   let darkFocus = 'dark:focus:ring-blue-800'
   let textColor = 'text-white'
+  let disabledColor = 'bg-blue-800'
 
   if (color === 'blue') {
     background = 'bg-blue-700'
@@ -15,6 +16,7 @@ const Button = ({ text, type, width, height, color, handleClick }) => {
     darkHover = 'dark:hover:bg-blue-700'
     darkFocus = 'dark:focus:ring-blue-800'
     textColor = 'text-white'
+    disabledColor = 'bg-blue-800'
   }
 
   if (color === 'red') {
@@ -25,6 +27,7 @@ const Button = ({ text, type, width, height, color, handleClick }) => {
     darkHover = 'dark:hover:bg-red-600' 
     darkFocus = 'dark:focus:ring-red-700' 
     textColor = 'text-white'
+    disabledColor = 'bg-red-700'
   }
 
   if (color === 'gray') {
@@ -45,6 +48,19 @@ const Button = ({ text, type, width, height, color, handleClick }) => {
     darkHover = 'dark:hover:bg-orange-700'
     darkFocus = 'dark:focus:ring-orange-800' 
     textColor = 'text-white' 
+    disabledColor = 'bg-orange-500'
+  }
+
+  if (disabled) {
+    return (
+      <button
+        type={type}
+        disabled
+        className={`${width} ${height} ${disabledColor} ${textColor} ${hover} font-medium rounded-lg text-sm px-5 py-2.5 text-center ${darkBackground}`}
+      >
+        {text}
+      </button>
+    )
   }
 
   if(handleClick) {

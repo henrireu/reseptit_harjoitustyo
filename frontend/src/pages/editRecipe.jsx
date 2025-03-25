@@ -26,6 +26,7 @@ const EditRecipe = () => {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(true)
   const [buttonLoading, setButtonLoading] = useState(false)
+  const [buttonDisabled, setButtonDisabled] = useState(false)
 
   const [changeImage, setChangeImage] = useState(false)
   const [imageFile, setImageFile] = useState(null)
@@ -100,6 +101,7 @@ const EditRecipe = () => {
   
         await editRecipe(id, recipe)
         toast.success('Resepti muokattu onnistuneesti')
+        setButtonDisabled(true)
 
         setTimeout(() => {
           navigate('/reseptit')
@@ -342,7 +344,7 @@ const EditRecipe = () => {
         {buttonLoading === true ? (
           <LoadingButton width="w-[100px]" />
         ) : (
-          <Button type="submit" text="Tallenna" width="w-[100px]" />
+          <Button type="submit" text="Tallenna" width="w-[100px]" disabled={buttonDisabled}/>
         )}      
 
       </form>

@@ -3,13 +3,13 @@ import { useNavigate } from "react-router-dom"
 import { toast, Toaster } from 'react-hot-toast'
 
 import { deleteRecipe } from "../services/recipes"
-//import LoadingButton2 from "./loadingButton2"
 import LoadingButton from "./loadingButton"
 import Button from "./button"
 
 const DeleteRecipeModal = ({ recipe }) => {
   const [isOpen, setIsOpen] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [buttonDisabled, setButtonDisabled] = useState(false)
 
   const navigate = useNavigate()
 
@@ -20,6 +20,7 @@ const DeleteRecipeModal = ({ recipe }) => {
       toast.success("Resepti poistettiin onnistuneesti", {
         position: "bottom-center",
       })
+      setButtonDisabled(true)
           
       setTimeout(() => {
         navigate('/')
@@ -59,7 +60,7 @@ const DeleteRecipeModal = ({ recipe }) => {
               {loading ? (
                 <LoadingButton color="red" width="w-[100px]"/>
               ) : (
-                <Button handleClick={onDelete} type="button" text="Poista" color="red" width="w-[100px]"/>
+                <Button handleClick={onDelete} type="button" text="Poista" color="red" width="w-[100px]" disabled={buttonDisabled} />
               )}
             </div>
           </div>

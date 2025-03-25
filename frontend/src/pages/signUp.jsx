@@ -17,6 +17,7 @@ const SignUp = () => {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [loading, setLoading] = useState(false)
+  const [buttonDisabled, setButtonDisabled] = useState(false)
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -48,6 +49,7 @@ const SignUp = () => {
         const user = await login({
           username, password
         })
+        setButtonDisabled(true)
         dispatch(setUser(user))
         setToken(user.token)
         toast.success(`Käyttäjä ${username} luotu onnistuneesti`)
@@ -129,7 +131,7 @@ const SignUp = () => {
         {loading === true ? (
           <LoadingButton width="w-[100px]" color="blue" />
         ) : (
-          <Button text="Luo tili" type="submit" width="w-[100px]" color="blue"/>
+          <Button text="Luo tili" type="submit" width="w-[100px]" color="blue" disabled={buttonDisabled}/>
         )}
 
       </form>

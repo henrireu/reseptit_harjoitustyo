@@ -12,6 +12,7 @@ const AddRecipe = () => {
   const [step, setStep] = useState(1)
   const [progressBar, setProgressBar] = useState(15)
   const [loading, setLoading] = useState(false)
+  const [buttonDisabled, setButtonDisabled] = useState(false)
 
   const [recipeName, setRecipeName] = useState('')
   const [imageFile, setImageFile] = useState(null)
@@ -34,10 +35,11 @@ const AddRecipe = () => {
       }
       await create(recipe)
       toast.success('Resepti luotu onnistuneesti')
+      setButtonDisabled(true)
       setProgressBar(100)
       setTimeout(() => {
         navigate('/reseptit')
-      }, 4000)
+      }, 3000)
     } catch(error) {
       console.error(error)
       toast.error('Reseptin luonti epäonnistui. Jokin meni vikaan.')
@@ -125,6 +127,7 @@ const AddRecipe = () => {
             timeUsed={timeUsed}
             loading={loading}
             setLoading={setLoading}
+            buttonDisabled={buttonDisabled}
           />
         )}
 
@@ -399,7 +402,7 @@ const Step4 = ({ timeUsed, setTimeUsed, handleNextStep, handlePrevStep }) => {
   )
 }
 
-const Step5 = ({ recipeName, instructions, ingredients, handlePrevStep, imageFile, loading, timeUsed }) => {
+const Step5 = ({ recipeName, instructions, ingredients, handlePrevStep, imageFile, loading, timeUsed, buttonDisabled }) => {
   const [imageURL, setImageURL] = useState(null)
 
   useEffect(() => {
@@ -456,7 +459,7 @@ const Step5 = ({ recipeName, instructions, ingredients, handlePrevStep, imageFil
         {loading ? (
           <LoadingButton width="w-[100px]"/>
         ) : (
-          <Button type="submit" text="Tallenna" width="w-[100px]"/>
+          <Button type="submit" text="Tallenna" width="w-[100px]" disabled={buttonDisabled} />
         )}
 
       </div>
