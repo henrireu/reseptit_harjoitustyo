@@ -1,8 +1,9 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { toast, Toaster } from 'react-hot-toast'
-import LoadingButton from "./loadingButton"
 import { createReview } from "../services/reviews"
+import LoadingButton from "./loadingButton"
+import Button from "./button"
 
 const ReviewForm = ({leaveForm, recipeId}) => {
   const [starCount, setStarCount] = useState(0)
@@ -149,15 +150,10 @@ const ReviewForm = ({leaveForm, recipeId}) => {
         ></textarea>
 
         {loading === true ? (
-          <LoadingButton color='orange'/>
+          <LoadingButton color='orange' width="w-[100px]"/>
         ) : (
-          <button
-            type="button"
-            onClick={handleCreate}
-            className="w-[100px] h-[40px] text-lg flex justify-center items-center text-white bg-orange-400 hover:bg-orange-500 hover:cursor-pointer focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg px-4 py-2 text-center dark:bg-orange-600 dark:hover:bg-orange-700 dark:focus:ring-orange-800"
-          >
-          Lähetä
-          </button>
+          <Button handleClick={handleCreate} type="button" text="Lähetä" width="w-[100px]" color="orange"/>
+          
         )}
 
       </div>

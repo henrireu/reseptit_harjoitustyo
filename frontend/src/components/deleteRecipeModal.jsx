@@ -3,7 +3,9 @@ import { useNavigate } from "react-router-dom"
 import { toast, Toaster } from 'react-hot-toast'
 
 import { deleteRecipe } from "../services/recipes"
+//import LoadingButton2 from "./loadingButton2"
 import LoadingButton from "./loadingButton"
+import Button from "./button"
 
 const DeleteRecipeModal = ({ recipe }) => {
   const [isOpen, setIsOpen] = useState(false)
@@ -53,21 +55,11 @@ const DeleteRecipeModal = ({ recipe }) => {
             <p className="text-gray-600 text-lg my-1 font-bold">{recipe.name}</p>
             <p className="text-gray-600 my-1">Tätä toimintoa ei voi perua.</p>
             <div className="flex justify-between mt-4">
-              <button
-                onClick={() => setIsOpen(false)}
-                className="bg-gray-300 px-5 py-2.5 rounded-lg hover:bg-gray-400 transition hover:cursor-pointer"
-              >
-                Peruuta
-              </button>
+              <Button handleClick={() => setIsOpen(false)} type="button" text="Peruuta" color="gray" width="w-[100px]"/>
               {loading ? (
-                <LoadingButton color="red" />
+                <LoadingButton color="red" width="w-[100px]"/>
               ) : (
-                <button
-                  onClick={onDelete}
-                  className="px-5 py-2.5 bg-red-600 text-white rounded-lg hover:bg-red-700 cursor-pointer w-[100px] focus:ring-4 focus:outline-none focus:ring-red-300 font-medium text-sm text-center dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-700"
-                >
-                Poista 
-                </button>
+                <Button handleClick={onDelete} type="button" text="Poista" color="red" width="w-[100px]"/>
               )}
             </div>
           </div>

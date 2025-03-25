@@ -7,11 +7,11 @@ import { useNavigate } from 'react-router-dom'
 import { setUser } from '../reducers/userSlice'
 import { setToken } from '../services/recipes'
 import LoadingButton from '../components/loadingButton'
+import Button from '../components/button'
 
 const EditProfile = () => {
   const [showConfirmationModal, setShowConfirmationModal] = useState(false)
   const [loading, setLoading] = useState(false)
-
 
   const user = useSelector((state) => state.user)
   const dispatch = useDispatch()
@@ -52,12 +52,7 @@ const EditProfile = () => {
       <div className="">
         <p className="mb-3">Käyttäjänimi:</p>
         <p className="mb-3">Oikea nimi:</p>
-        <button 
-          className="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-700 cursor-pointer"
-          onClick={() => setShowConfirmationModal(true)}
-        >
-        Poista profiili 
-        </button>
+        <Button handleClick={() => setShowConfirmationModal(true)} text="Poista profiili" type="button" color="red" /> 
       </div>
       <div className="">
         <p className="mb-3">{user.username}</p>
@@ -76,21 +71,11 @@ const EditProfile = () => {
             </h3>
             <div className="flex justify-between gap-4 text-base">
               {loading === true ? (
-                <LoadingButton width={120}/>
+                <LoadingButton width="w-[120px]" color="red"/>
               ): (
-                <button
-                  onClick={handleDeleteProfile}
-                  className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 cursor-pointer w-[120px] focus:ring-4 focus:outline-none focus:ring-red-300 font-medium text-sm text-center dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-700"
-                >
-                Kyllä, poista
-                </button>
+                <Button handleClick={handleDeleteProfile} type="button" text="Kyllä, poista" width="w-[120px]" color="red" />
               )}
-              <button
-                onClick={() => setShowConfirmationModal(false)}
-                className="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 cursor-pointer"
-              >
-                Peruuta
-              </button>
+              <Button handleClick={() => setShowConfirmationModal(false)} text="Peruuta" type="button" color="gray" />
             </div>
           </div>
         </div>

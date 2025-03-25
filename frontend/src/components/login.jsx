@@ -7,6 +7,7 @@ import { setUser } from "../reducers/userSlice"
 import { setShowLogin } from "../reducers/showLoginSlice"
 import LoadingButton from "./loadingButton"
 import Input from "./input"
+import Button from "./button"
 
 const Login = () => {
   const dispatch = useDispatch()
@@ -101,6 +102,7 @@ const LoginForm = () => {
         <Input 
           label="Salasana"
           type="password"
+          placeholder="Salasana"
           required={true}
           value={password}
           setValue={setPassword}
@@ -116,15 +118,12 @@ const LoginForm = () => {
       </div>
 
       {loading ? (
-        <LoadingButton />
+        <LoadingButton width="w-[100px]" color="blue"/>
       ) : (
-        <button 
-          type="submit" 
-          className="mb-5 w-[100px] text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:cursor-pointer"
-        >Kirjaudu</button>
+        <Button text="Kirjaudu" type="submit" color="blue" width="w-[100px]"/>
       )}
 
-      <p className="text-md font-light text-gray-500 dark:text-gray-400">
+      <p className="text-md mt-5 font-light text-gray-500 dark:text-gray-400">
           Eikö sinulla ole vielä tiliä?
         <a 
           href="#" 

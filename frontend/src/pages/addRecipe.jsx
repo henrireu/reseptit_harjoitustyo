@@ -6,6 +6,7 @@ import { create } from "../services/recipes"
 import FileUpload from "../components/fileUpload"
 import LoadingButton from "../components/loadingButton"
 import Input from "../components/input"
+import Button from "../components/button"
 
 const AddRecipe = () => {
   const [step, setStep] = useState(1)
@@ -162,16 +163,8 @@ const Step1 = ({ handleNextStep, handlePrevStep, recipeName, setRecipeName, imag
       </div>
 
       <div className="flex justify-between mt-auto">
-        <button 
-          type="button" 
-          className="mb-5 w-[100px] text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:cursor-pointer"
-          onClick={handlePrevStep}
-        >Takaisin</button>
-        <button 
-          type="button" 
-          className="mb-5 w-[100px] text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:cursor-pointer"
-          onClick={checkNextStep}
-        >Seuraava</button>
+        <Button handleClick={handlePrevStep} text="Takaisin" type="button" width="w-[100px]" />
+        <Button handleClick={checkNextStep} text="Seuraava" type="button" width="w-[100px]" />
       </div>
 
     </>
@@ -286,16 +279,8 @@ const Step2 = ({ handleNextStep, handlePrevStep, ingredients, setIngredients }) 
       </div>
 
       <div className="flex justify-between mt-auto">
-        <button 
-          type="button" 
-          className="mb-5 w-[100px] text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:cursor-pointer"
-          onClick={handlePrevStep}
-        >Takaisin</button>
-        <button 
-          type="button" 
-          className="mb-5 w-[100px] text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:cursor-pointer"
-          onClick={checkNextStep}
-        >Seuraava</button>
+        <Button handleClick={handlePrevStep} text="Takaisin" type="button" width="w-[100px]" />
+        <Button handleClick={checkNextStep} text="Seuraava" type="button" width="w-[100px]" />
       </div>
             
     </>
@@ -374,16 +359,8 @@ const Step3 = ({ handleNextStep, handlePrevStep, instructions, setInstructions})
       </div>
 
       <div className="flex justify-between">
-        <button 
-          type="button" 
-          className="mb-5 w-[100px] text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:cursor-pointer"
-          onClick={handlePrevStep}
-        >Takaisin</button>
-        <button 
-          type="button" 
-          className="mb-5 w-[100px] text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:cursor-pointer"
-          onClick={checkNextStep}
-        >Seuraava</button>
+        <Button handleClick={handlePrevStep} text="Takaisin" type="button" width="w-[100px]" />
+        <Button handleClick={checkNextStep} text="Seuraava" type="button" width="w-[100px]" />
       </div>
             
     </>
@@ -415,16 +392,8 @@ const Step4 = ({ timeUsed, setTimeUsed, handleNextStep, handlePrevStep }) => {
       </div>
 
       <div className="flex justify-between">
-        <button 
-          type="button" 
-          className="mb-5 w-[100px] text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:cursor-pointer"
-          onClick={handlePrevStep}
-        >Takaisin</button>
-        <button 
-          type="button" 
-          className="mb-5 w-[100px] text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:cursor-pointer"
-          onClick={checkNextStep}
-        >Seuraava</button>
+        <Button handleClick={handlePrevStep} text="Takaisin" type="button" width="w-[100px]" />
+        <Button handleClick={checkNextStep} text="Seuraava" type="button" width="w-[100px]" />
       </div>
     </>
   )
@@ -483,18 +452,11 @@ const Step5 = ({ recipeName, instructions, ingredients, handlePrevStep, imageFil
       </div>
 
       <div className="flex justify-between mt-5">
-        <button 
-          type="button" 
-          className="mb-5 w-[100px] text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:cursor-pointer"
-          onClick={handlePrevStep}
-        >Takaisin</button>
+        <Button handleClick={handlePrevStep} text="Takaisin" type="button" width="w-[100px]" />
         {loading ? (
-          <LoadingButton />
+          <LoadingButton width="w-[100px]"/>
         ) : (
-          <button 
-            type="submit" 
-            className="mb-5 w-[100px] text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:cursor-pointer"
-          >Tallenna</button>
+          <Button type="submit" text="Tallenna" width="w-[100px]"/>
         )}
 
       </div>
