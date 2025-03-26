@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom"
 
 import { create } from "../services/recipes"
 import FileUpload from "../components/fileUpload"
-import LoadingButton from "../components/loadingButton"
 import Input from "../components/input"
 import Button from "../components/button"
 
@@ -456,13 +455,9 @@ const Step5 = ({ recipeName, instructions, ingredients, handlePrevStep, imageFil
 
       <div className="flex justify-between mt-5">
         <Button handleClick={handlePrevStep} text="Takaisin" type="button" width="w-[100px]" />
-        {loading ? (
-          <LoadingButton width="w-[100px]"/>
-        ) : (
-          <Button type="submit" text="Tallenna" width="w-[100px]" disabled={buttonDisabled} />
-        )}
-
+        <Button type="submit" text="Tallenna" width="w-[100px]" disabled={buttonDisabled} loading={loading} />
       </div>
+
     </div>
   )
 }

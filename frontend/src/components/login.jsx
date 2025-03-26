@@ -5,7 +5,6 @@ import { setToken } from "../services/recipes"
 import { useDispatch } from 'react-redux'
 import { setUser } from "../reducers/userSlice"
 import { setShowLogin } from "../reducers/showLoginSlice"
-import LoadingButton from "./loadingButton"
 import Input from "./input"
 import Button from "./button"
 
@@ -117,11 +116,7 @@ const LoginForm = () => {
         )}
       </div>
 
-      {loading ? (
-        <LoadingButton width="w-[100px]" color="blue"/>
-      ) : (
-        <Button text="Kirjaudu" type="submit" color="blue" width="w-[100px]"/>
-      )}
+      <Button text="Kirjaudu" type="submit" color="blue" width="w-[100px]" loading={loading} />
 
       <p className="text-md mt-5 font-light text-gray-500 dark:text-gray-400">
           Eikö sinulla ole vielä tiliä?

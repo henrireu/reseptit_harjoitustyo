@@ -9,7 +9,6 @@ import { create } from "../services/users"
 import { setToken } from "../services/recipes"
 import Input from "../components/input"
 import Button from "../components/button"
-import LoadingButton from "../components/loadingButton"
 
 const SignUp = () => {
   const [username, setUsername] = useState('')
@@ -128,11 +127,7 @@ const SignUp = () => {
           />
         </div>
 
-        {loading === true ? (
-          <LoadingButton width="w-[100px]" color="blue" />
-        ) : (
-          <Button text="Luo tili" type="submit" width="w-[100px]" color="blue" disabled={buttonDisabled}/>
-        )}
+        <Button text="Luo tili" type="submit" width="w-[100px]" color="blue" disabled={buttonDisabled} loading={loading} />
 
       </form>
     </div>

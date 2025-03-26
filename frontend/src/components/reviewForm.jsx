@@ -2,7 +2,6 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { toast, Toaster } from 'react-hot-toast'
 import { createReview } from "../services/reviews"
-import LoadingButton from "./loadingButton"
 import Button from "./button"
 
 const ReviewForm = ({leaveForm, recipeId}) => {
@@ -152,12 +151,7 @@ const ReviewForm = ({leaveForm, recipeId}) => {
           onChange={e => setComment(e.target.value)}
         ></textarea>
 
-        {loading === true ? (
-          <LoadingButton color='orange' width="w-[100px]"/>
-        ) : (
-          <Button handleClick={handleCreate} type="button" text="Lähetä" width="w-[100px]" color="orange" disabled={buttonDisabled} />
-          
-        )}
+        <Button handleClick={handleCreate} type="button" text="Lähetä" width="w-[100px]" color="orange" disabled={buttonDisabled} loading={loading} />
 
       </div>
 

@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom"
 import { toast, Toaster } from 'react-hot-toast'
 
 import { deleteRecipe } from "../services/recipes"
-import LoadingButton from "./loadingButton"
 import Button from "./button"
 
 const DeleteRecipeModal = ({ recipe }) => {
@@ -55,14 +54,12 @@ const DeleteRecipeModal = ({ recipe }) => {
             <p className="text-gray-600 my-1">Haluatko varmasti poistaa reseptin:</p>
             <p className="text-gray-600 text-lg my-1 font-bold">{recipe.name}</p>
             <p className="text-gray-600 my-1">Tätä toimintoa ei voi perua.</p>
+
             <div className="flex justify-between mt-4">
               <Button handleClick={() => setIsOpen(false)} type="button" text="Peruuta" color="gray" width="w-[100px]"/>
-              {loading ? (
-                <LoadingButton color="red" width="w-[100px]"/>
-              ) : (
-                <Button handleClick={onDelete} type="button" text="Poista" color="red" width="w-[100px]" disabled={buttonDisabled} />
-              )}
+              <Button handleClick={onDelete} type="button" text="Poista" color="red" width="w-[100px]" disabled={buttonDisabled} loading={loading} />
             </div>
+            
           </div>
         </div>
       )}

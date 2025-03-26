@@ -5,7 +5,6 @@ import { toast, Toaster } from 'react-hot-toast'
 
 import { getSingleRecipe, editRecipe, editRecipeWithImage } from "../services/recipes"
 import LoadingPage from "../components/loadingPage"
-import LoadingButton from "../components/loadingButton"
 import FileUpload from "../components/fileUpload"
 import Input from "../components/input"
 import Button from "../components/button"
@@ -340,12 +339,8 @@ const EditRecipe = () => {
             setValue={setTimeUsed}
           />
         </div>
-
-        {buttonLoading === true ? (
-          <LoadingButton width="w-[100px]" />
-        ) : (
-          <Button type="submit" text="Tallenna" width="w-[100px]" disabled={buttonDisabled}/>
-        )}      
+        
+        <Button type="submit" text="Tallenna" width="w-[100px]" disabled={buttonDisabled} loading={buttonLoading} />   
 
       </form>
     </div>

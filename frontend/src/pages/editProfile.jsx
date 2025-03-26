@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom'
 
 import { setUser } from '../reducers/userSlice'
 import { setToken } from '../services/recipes'
-import LoadingButton from '../components/loadingButton'
 import Button from '../components/button'
 
 const EditProfile = () => {
@@ -72,11 +71,7 @@ const EditProfile = () => {
               </span>
             </h3>
             <div className="flex justify-between gap-4 text-base">
-              {loading === true ? (
-                <LoadingButton width="w-[120px]" color="red"/>
-              ): (
-                <Button handleClick={handleDeleteProfile} type="button" text="Kyllä, poista" width="w-[120px]" color="red" disabled={buttonDisabled} />
-              )}
+              <Button handleClick={handleDeleteProfile} type="button" text="Kyllä, poista" width="w-[120px]" color="red" disabled={buttonDisabled} loading={loading} />
               <Button handleClick={() => setShowConfirmationModal(false)} text="Peruuta" type="button" color="gray" />
             </div>
           </div>
