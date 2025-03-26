@@ -63,7 +63,7 @@ const EditProfile = () => {
       {showConfirmationModal && (
         <div className="fixed inset-0 bg-black/30 flex justify-center items-center">
           <div className="bg-white rounded-lg shadow-lg p-8 w-[290px] sm:w-[380px]">
-            <h3 className="text-lg text-center mb-4">
+            <h3 className="text-lg text-center text-black mb-4">
               Oletko varma, että haluat poistaa profiilisi?
               <br />
               <span className="text-sm text-gray-500">

@@ -26,7 +26,7 @@ const Home = () => {
   return (
     <div className="pt-[150px] px-10 max-w-[1200px] mx-auto pb-10">
 
-      <div className="flex flex-col sm:flex-row gap-5 sm:gap-10 pb-10 border-b border-gray-500">
+      <div className="flex flex-col sm:flex-row gap-5 sm:gap-10 pb-10 border-b border-gray-500 dark:border-white">
         <img src={recipeImage} alt="resepti kuva" className="w-full sm:w-1/2"/>
         <div className="w-full sm:w-1/2">
           <h2 className="text-3xl md:text-4xl font-semibold">Tervetuloa!</h2>

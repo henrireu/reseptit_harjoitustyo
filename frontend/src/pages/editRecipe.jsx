@@ -280,7 +280,7 @@ const EditRecipe = () => {
 
           <button 
             type="button"
-            className="bg-blue-500 h-1/2 mt-auto text-white px-3 py-2 rounded-lg hover:bg-blue-600 transition hover:cursor-pointer"
+            className="bg-yellow-600 h-1/2 mt-auto text-white px-3 py-2 rounded-lg hover:bg-yellow-700 transition hover:cursor-pointer"
             onClick={addIngredient}
           >
                 +
@@ -320,7 +320,7 @@ const EditRecipe = () => {
 
             <button
               type="button"
-              className="bg-blue-500 h-1/2 mt-auto text-white px-3 py-2 rounded-lg hover:bg-blue-600 transition hover:cursor-pointer"
+              className="bg-yellow-600 h-1/2 mt-auto text-white px-3 py-2 rounded-lg hover:bg-yellow-700 transition hover:cursor-pointer"
               onClick={addInstruction}
             >
                 +
@@ -340,7 +340,7 @@ const EditRecipe = () => {
           />
         </div>
         
-        <Button type="submit" text="Tallenna" width="w-[100px]" disabled={buttonDisabled} loading={buttonLoading} />   
+        <Button type="submit" color="gold" text="Tallenna" width="w-[100px]" disabled={buttonDisabled} loading={buttonLoading} />   
 
       </form>
     </div>

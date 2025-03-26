@@ -19,6 +19,17 @@ const Button = ({ text, type, width, height, color, handleClick, disabled, loadi
     disabledColor = 'bg-blue-800'
   }
 
+  if (color === 'gold') {
+    background = 'bg-yellow-600'
+    hover = 'hover:bg-yellow-700'
+    focus = 'focus:ring-yellow-300'
+    darkBackground = 'dark:bg-yellow-500'
+    darkHover = 'dark:hover:bg-yellow-600'
+    darkFocus = 'dark:focus:ring-yellow-800'
+    textColor = 'text-white'
+    disabledColor = 'bg-yellow-800'
+  }
+
   if (color === 'red') {
     background = 'bg-red-600' 
     hover = 'hover:bg-red-700' 
@@ -58,7 +69,7 @@ const Button = ({ text, type, width, height, color, handleClick, disabled, loadi
       <button
         type={type}
         disabled
-        className={`${width} ${height} ${disabledColor} ${textColor} ${hover} font-medium rounded-lg text-sm px-5 py-2.5 text-center ${darkBackground}`}
+        className={`${width} ${height} ${disabledColor} ${textColor} font-medium rounded-lg text-sm px-5 py-2.5 text-center ${darkBackground}`}
       >
         {text}
       </button>
@@ -86,6 +97,11 @@ const Button = ({ text, type, width, height, color, handleClick, disabled, loadi
 const LoadingButton = ({ width, height, color }) => {
   let background = 'bg-blue-800'
   let darkBackground = 'dark:bg-blue-700'
+
+  if(color === 'gold') {
+    background = 'bg-yellow-700'
+    darkBackground = 'dark:bg-yellow-600'
+  }
 
   if (color === 'blue') {
     background = 'bg-blue-800'

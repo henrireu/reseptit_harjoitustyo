@@ -27,6 +27,10 @@ const SignUp = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
+    if(username.length >= 15) {
+      toast.error('Käyttäjänimen maksimi pituus on 15 merkkiä.')
+      return
+    }
     if(password !== confirmPassword) {
       toast.error('Salasanat eivät täsmää!')
       return
@@ -127,7 +131,7 @@ const SignUp = () => {
           />
         </div>
 
-        <Button text="Luo tili" type="submit" width="w-[100px]" color="blue" disabled={buttonDisabled} loading={loading} />
+        <Button text="Luo tili" type="submit" width="w-[100px]" color="gold" disabled={buttonDisabled} loading={loading} />
 
       </form>
     </div>

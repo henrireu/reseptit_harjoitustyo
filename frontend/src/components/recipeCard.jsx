@@ -28,7 +28,7 @@ const RecipeCard = ({ recipe }) => {
 
   return (
     <div 
-      className="bg-gray-300 hover:bg-gray-200 rounded-lg shadow-md pb-4 hover:cursor-pointer w-[300px] sm:w-[330px]"
+      className="bg-orange-200 hover:bg-orange-100 dark:bg-gray-700 dark:hover:bg-gray-600 rounded-lg shadow-md pb-4 hover:cursor-pointer w-[300px] sm:w-[330px]"
     >
       <Link to={`/reseptit/${recipe.id}`}>
         <img src={recipe.imageUrl} className="w-full h-[250px] object-cover"/>

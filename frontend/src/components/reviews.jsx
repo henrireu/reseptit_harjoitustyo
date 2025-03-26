@@ -1,9 +1,7 @@
 import { useState } from "react"
 import { useSelector } from "react-redux"
 
-
 import { countAverageRating, formatDate } from "../helpers/reviewHelper"
-
 import ReviewForm from "./reviewForm"
 
 const Reviews = ({ reviews, recipeUserId, recipeId }) => {
@@ -16,7 +14,7 @@ const Reviews = ({ reviews, recipeUserId, recipeId }) => {
   }
 
   return (
-    <div className="border-t border-b mt-10 py-5">
+    <div className="border-t border-b border-gray-800 dark:border-white mt-10 py-5">
       {showForm && (
         <ReviewForm leaveForm={leaveForm} recipeId={recipeId}/>
       )}
@@ -57,7 +55,7 @@ const Reviews = ({ reviews, recipeUserId, recipeId }) => {
 const SingleReview = ({review}) => {
   const date = formatDate(review.createdAt)
   return (
-    <div className="flex flex-col sm:flex-row border gap-2 sm:gap-5 p-5 rounded mt-2">
+    <div className="flex flex-col sm:flex-row borderr bg-orange-200 gap-2 sm:gap-5 p-5 rounded mt-4">
       <div className="flex flex-col justify-between w-[175px]">
         <div>
           <StarRow number={review.rating}/>
@@ -116,7 +114,7 @@ const YellowStar = () => {
 
 const GrayStar = () => {
   return (
-    <svg className="w-5 h-5 mr-1 text-gray-300 dark:text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+    <svg className="w-5 h-5 mr-1 text-gray-400 dark:text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
       <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
     </svg>
   )

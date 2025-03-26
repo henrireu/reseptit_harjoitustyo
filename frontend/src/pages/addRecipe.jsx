@@ -71,7 +71,7 @@ const AddRecipe = () => {
 
         <div className="w-full bg-gray-200 h-6 rounded-full h-2.5 dark:bg-gray-700 mb-5">
           <div 
-            className="flex items-center justify-center bg-blue-600 text-xs font-medium text-blue-100 h-6 leading-none rounded-full" 
+            className="flex items-center justify-center bg-yellow-600 text-xs font-medium text-white h-6 leading-none rounded-full" 
             style={{ width: `${progressBar}%` }}
           >
             <p className="my-auto">{progressBar}%</p>
@@ -165,8 +165,8 @@ const Step1 = ({ handleNextStep, handlePrevStep, recipeName, setRecipeName, imag
       </div>
 
       <div className="flex justify-between mt-auto">
-        <Button handleClick={handlePrevStep} text="Takaisin" type="button" width="w-[100px]" />
-        <Button handleClick={checkNextStep} text="Seuraava" type="button" width="w-[100px]" />
+        <Button handleClick={handlePrevStep} text="Takaisin" color="gold" type="button" width="w-[100px]" />
+        <Button handleClick={checkNextStep} text="Seuraava" color="gold" type="button" width="w-[100px]" />
       </div>
 
     </>
@@ -255,7 +255,7 @@ const Step2 = ({ handleNextStep, handlePrevStep, ingredients, setIngredients }) 
 
           <button 
             type="button"
-            className="bg-blue-500 h-1/2 mt-auto text-white px-3 py-2 rounded-lg hover:bg-blue-600 transition hover:cursor-pointer"
+            className="bg-yellow-600 h-1/2 mt-auto text-white px-3 py-2 rounded-lg hover:bg-yellow-700 transition hover:cursor-pointer"
             onClick={addIngredient}
           >
                 +
@@ -281,8 +281,8 @@ const Step2 = ({ handleNextStep, handlePrevStep, ingredients, setIngredients }) 
       </div>
 
       <div className="flex justify-between mt-auto">
-        <Button handleClick={handlePrevStep} text="Takaisin" type="button" width="w-[100px]" />
-        <Button handleClick={checkNextStep} text="Seuraava" type="button" width="w-[100px]" />
+        <Button handleClick={handlePrevStep} text="Takaisin" color="gold" type="button" width="w-[100px]" />
+        <Button handleClick={checkNextStep} text="Seuraava" color="gold" type="button" width="w-[100px]" />
       </div>
             
     </>
@@ -333,7 +333,7 @@ const Step3 = ({ handleNextStep, handlePrevStep, instructions, setInstructions})
 
           <button
             type="button"
-            className="bg-blue-500 h-1/2 mt-auto text-white px-3 py-2 rounded-lg hover:bg-blue-600 transition hover:cursor-pointer"
+            className="bg-yellow-600 h-1/2 mt-auto text-white px-3 py-2 rounded-lg hover:bg-yellow-700 transition hover:cursor-pointer"
             onClick={addInstruction}
           >
                 +
@@ -361,8 +361,8 @@ const Step3 = ({ handleNextStep, handlePrevStep, instructions, setInstructions})
       </div>
 
       <div className="flex justify-between">
-        <Button handleClick={handlePrevStep} text="Takaisin" type="button" width="w-[100px]" />
-        <Button handleClick={checkNextStep} text="Seuraava" type="button" width="w-[100px]" />
+        <Button handleClick={handlePrevStep} text="Takaisin" color="gold" type="button" width="w-[100px]" />
+        <Button handleClick={checkNextStep} text="Seuraava" color="gold" type="button" width="w-[100px]" />
       </div>
             
     </>
@@ -394,8 +394,8 @@ const Step4 = ({ timeUsed, setTimeUsed, handleNextStep, handlePrevStep }) => {
       </div>
 
       <div className="flex justify-between">
-        <Button handleClick={handlePrevStep} text="Takaisin" type="button" width="w-[100px]" />
-        <Button handleClick={checkNextStep} text="Seuraava" type="button" width="w-[100px]" />
+        <Button handleClick={handlePrevStep} text="Takaisin" color="gold" type="button" width="w-[100px]" />
+        <Button handleClick={checkNextStep} text="Seuraava" color="gold" type="button" width="w-[100px]" />
       </div>
     </>
   )
@@ -454,8 +454,8 @@ const Step5 = ({ recipeName, instructions, ingredients, handlePrevStep, imageFil
       </div>
 
       <div className="flex justify-between mt-5">
-        <Button handleClick={handlePrevStep} text="Takaisin" type="button" width="w-[100px]" />
-        <Button type="submit" text="Tallenna" width="w-[100px]" disabled={buttonDisabled} loading={loading} />
+        <Button handleClick={handlePrevStep} text="Takaisin" color="gold" type="button" width="w-[100px]" />
+        <Button type="submit" text="Tallenna" color="gold" width="w-[100px]" disabled={buttonDisabled} loading={loading} />
       </div>
 
     </div>

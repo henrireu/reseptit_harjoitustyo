@@ -16,8 +16,8 @@ const Login = () => {
   }
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black/30">
-      <div className="bg-white mx-6 mt-[50px] p-4 rounded-lg shadow-lg max-w-[600px] w-full">
+    <div className="fixed inset-0 flex items-center justify-center bg-black/50 dark:bg-white/50">
+      <div className="bgg-white bg-orange-100 dark:bg-gray-700 mx-6 mt-[50px] p-4 rounded-lg shadow-lg max-w-[600px] w-full">
         <div className="flex justify-end">
           <svg 
             xmlns="http://www.w3.org/2000/svg" 
@@ -32,7 +32,7 @@ const Login = () => {
           </svg>
         </div>
         <LoginForm />
-      </div>
+      </div> 
     </div>
   )
 }
@@ -116,13 +116,13 @@ const LoginForm = () => {
         )}
       </div>
 
-      <Button text="Kirjaudu" type="submit" color="blue" width="w-[100px]" loading={loading} />
+      <Button text="Kirjaudu" type="submit" color="gold" width="w-[100px]" loading={loading} />
 
-      <p className="text-md mt-5 font-light text-gray-500 dark:text-gray-400">
+      <p className="text-md mt-5 font-light text-gray-800 dark:text-gray-400">
           Eikö sinulla ole vielä tiliä?
         <a 
           href="#" 
-          className="font-medium text-blue-700 hover:underline dark:text-primary-500 ml-2"
+          className="font-medium text-orange-700 hover:underline dark:text-primary-500 ml-2"
           onClick={handleSignup}
         >
           Rekisteröidy
