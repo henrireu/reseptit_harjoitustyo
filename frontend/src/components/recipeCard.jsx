@@ -22,7 +22,7 @@ const RecipeCard = ({ recipe }) => {
         setLoading(false)
       }
     }
-
+ 
     getReviews()
   }, [])
 
