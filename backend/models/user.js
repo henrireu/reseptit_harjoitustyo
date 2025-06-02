@@ -21,6 +21,10 @@ const userSchema = mongoose.Schema({
       ref: 'Recipe'
     }
   ],
+  avatarId: {
+    type: Number,
+    required: true
+  }
 })
 
 userSchema.set('toJSON', {

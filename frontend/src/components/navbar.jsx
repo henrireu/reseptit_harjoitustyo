@@ -5,7 +5,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setUser } from "../reducers/userSlice"
 import { setShowLogin } from "../reducers/showLoginSlice"
 import { setToken } from "../services/recipes"
+
 import Button from "./button"
+import Avatar from "./avatar"
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -41,6 +43,8 @@ const Navbar = () => {
               <div className="hidden lg:block text-gray-900">
                 Tervetuloa, {user.username}
               </div>
+
+              <Avatar id={user.avatarId}/>
 
               <div 
                 className="cursor-pointer hidden md:block relative group"

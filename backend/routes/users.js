@@ -20,7 +20,7 @@ usersRouter.get('/:id', async (request, response, next) => {
 
 usersRouter.post('/', async (request, response, next) => {
   try {
-    let { username, name, password } = request.body
+    let { username, name, password, avatarId } = request.body
 
     if (!username || !password) {
       return response.status(400).json({ error: 'Username and password required' })
@@ -35,6 +35,7 @@ usersRouter.post('/', async (request, response, next) => {
       username,
       name,
       passwordHash,
+      avatarId
     })
 
     const savedUser = await user.save()
