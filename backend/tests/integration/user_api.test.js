@@ -18,6 +18,7 @@ describe('when there is initially one user at db', () => {
     const user = new User({ 
       username: 'root',
       name: 'Superuser', 
+      avatarId: 1,
       passwordHash 
     })
   
@@ -31,6 +32,7 @@ describe('when there is initially one user at db', () => {
       username: 'mluukkai',
       name: 'Matti Luukkainen',  
       password: 'salainen',
+      avatarId: 1
     }
   
     await api
@@ -53,6 +55,7 @@ describe('when there is initially one user at db', () => {
       username: 'root',
       name: 'Superuser',
       password: 'salainen',
+      avatarId: 1
     }
 
     const result = await api
