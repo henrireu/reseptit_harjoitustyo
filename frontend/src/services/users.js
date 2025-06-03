@@ -34,6 +34,28 @@ const create = async newUser => {
 
 }
 
+const editUser = async (userId, avatarId) => {
+  const token = getToken()
+  try {
+    const config = {
+      headers: { 
+        "Content-Type": "application/json", 
+        Authorization: token 
+      }
+    }
+
+    const response = await axios.put(
+      `${baseUrl}/${userId}`,
+      { avatarId },
+      config
+    )
+
+    return response.data
+  } catch (error) {
+    handleAxiosError(error)
+  }
+}
+
 const deleteUser = async userId => {
   const token = getToken()
   try {
@@ -52,4 +74,4 @@ const deleteUser = async userId => {
   }
 }
 
-export { getAll, create, getUser, deleteUser }
+export { getAll, create, getUser, deleteUser, editUser }

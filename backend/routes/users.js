@@ -44,6 +44,37 @@ usersRouter.post('/', async (request, response, next) => {
   } catch (error) {
     next(error) 
   }
+}) 
+
+usersRouter.put('/:id', async (request, response, next) => {
+  try {
+    let { avatarId } = request.body
+
+    if (!request.token) {
+      return response.status(401).json({ error: 'Token missing' })
+    }
+
+    const decodedToken = jwt.verify(request.token, process.env.SECRET)
+
+    if (decodedToken) {
+      const updatedUser = await User.findByIdAndUpdate(
+        request.params.id,
+        { avatarId },
+        { new: true, runValidators: true, context: 'query' }
+      )
+
+      if (!updatedUser) {
+        return response.status(404).json({ error: 'User not found' })
+      }
+
+      response.json(updatedUser)
+    }
+
+  } catch (error) {
+    console.error(error)
+    next(error)
+  }
+  
 })
 
 usersRouter.delete('/:id', async (request, response, next) => {

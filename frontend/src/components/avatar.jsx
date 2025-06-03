@@ -4,8 +4,6 @@ import avatarMan2 from "../assets/chefman2.png"
 import avatarDog from "../assets/dog.png"
 
 const Avatar = ({ id }) => {
-  console.log(id)
-
   return (
     <div className="flex justify-center items-center w-12 h-12 rounded-full bg-orange-300">
       { id === 1 ? (
