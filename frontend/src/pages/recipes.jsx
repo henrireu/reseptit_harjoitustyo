@@ -12,6 +12,8 @@ const Recipes = () => {
   const [error, setError] = useState('')
   const [search, setSearch] = useState('')
 
+  const [recipestate2, setRecipestate2] = useState('uusimmat')
+
   const user = useSelector(state => state.user)
 
   console.log('kaikki reseptit', recipes)
@@ -42,7 +44,7 @@ const Recipes = () => {
   return (
     <div className="pt-[100px] px-10 max-w-[1400px] mx-auto pb-10">
 
-      <div className="flex justify-center gap-10 mb-10">
+      <div className="flex justify-center gap-10 mb-5">
         <div 
           className={`cursor-pointer text-2xl font-medium pb-1 hover:border-b-2 ${
             recipestate === 'kaikki' && 'border-b-2'
@@ -64,6 +66,44 @@ const Recipes = () => {
 
       <SearchForm search={search} setSearch={setSearch}/>
 
+      <div className="flex gap-10 justify-center mb-5">
+        <div className="flex items-center">
+          <input
+            id="radio-uusimmat"
+            type="radio"
+            value="uusimmat"
+            name="sort-option"
+            checked={recipestate2 === 'uusimmat'}
+            onChange={() => setRecipestate2('uusimmat')}
+            className="w-4 h-4 text-yellow-400 bg-gray-100 border-gray-300 focus:ring-yellow-500 dark:focus:ring-yellow-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+          />
+          <label
+            htmlFor="radio-uusimmat"
+            className="ms-2 text-md font-medium text-gray-900 dark:text-gray-300"
+          >
+          Uusimmat
+          </label>
+        </div>
+
+        <div className="flex items-center me-4">
+          <input
+            id="radio-suosituimmat"
+            type="radio"
+            value="suosituimmat"
+            name="colored-radio"
+            checked={recipestate2 === 'suosituimmat'}
+            onChange={() => setRecipestate2('suosituimmat')}
+            className="w-4 h-4 text-yellow-400 bg-gray-100 border-gray-300 focus:ring-yellow-500 dark:focus:ring-yellow-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+          />
+          <label
+            htmlFor="radio-suosituimmat"
+            className="ms-2 text-md font-medium text-gray-900 dark:text-gray-300"
+          >
+          Suosituimmat
+          </label>
+        </div>
+      </div>
+
       {error !== '' && (
         <p className="text-red-600 text-2xl text-center">{error}</p>
       )}
@@ -76,6 +116,12 @@ const Recipes = () => {
                 ? recipe.name.toLowerCase().includes(search.toLowerCase()) 
                 : true 
             )
+            .sort((a, b) => {
+              if (recipestate2 === 'suosituimmat') {
+                return (b.averageRating || 0) - (a.averageRating || 0)
+              }
+              return 0
+            })
             .map((recipe) => 
               <RecipeCard key={recipe.id} recipe={recipe} />
             )
@@ -104,7 +150,7 @@ const Recipes = () => {
 
 const SearchForm = ({ search, setSearch }) => {
   return (
-    <form className="max-w-xl mx-auto mb-10">
+    <form className="max-w-xl mx-auto mb-5">
       <label
         htmlFor="default-search"
         className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"

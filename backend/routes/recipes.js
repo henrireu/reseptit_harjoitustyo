@@ -10,8 +10,22 @@ recipesRouter.get('/', async (request, response, next) => {
   const recipes = await Recipe.find({})
     .sort({ createdAt: -1 })
     .populate('user', { username: 1, name: 1 })
+    .populate('reviews', { rating: 1 })
 
-  response.json(recipes)
+  const recipesWithAvg = recipes.map(recipe => {
+    const ratings = recipe.reviews.map(r => r.rating)
+    const averageRating = ratings.length > 0
+      ? ratings.reduce((a, b) => a + b, 0) / ratings.length
+      : 0
+
+    const averageRatingRounded = Math.round(averageRating * 100) / 100
+
+    const recipeObj = recipe.toJSON()
+    recipeObj.averageRating = averageRatingRounded
+    return recipeObj
+  })
+
+  response.json(recipesWithAvg);
 })
 
 recipesRouter.get('/latest', async (request, response, next) => {
@@ -30,11 +44,23 @@ recipesRouter.get('/latest', async (request, response, next) => {
 /*recipesRouter.get('/popular', async (request, response, next) => {
   try {
     const recipes = await Recipe.find({})
-      .sort({ createdAt: -1 })
-      .populate('user', { username: 1, name: 1 })
-    
-    response.json(recipes)
+      .populate('user', { username: 1, name: 1 }) 
+      .populate('reviews', { rating: 1 })
 
+    const recipesWithAvg = recipes.map(recipe => {
+      const ratings = recipe.reviews.map(r => r.rating)
+      const averageRating = ratings.length > 0
+        ? ratings.reduce((a, b) => a + b, 0) / ratings.length
+        : 0
+
+      const averageRatingRounded = Math.round(averageRating * 100) / 100
+
+      const recipeObj = recipe.toJSON()
+      recipeObj.averageRating = averageRatingRounded
+      return recipeObj
+    })
+
+    response.json(recipesWithAvg);
   } catch (error) {
     next(error)
   }

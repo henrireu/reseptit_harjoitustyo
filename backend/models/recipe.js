@@ -57,7 +57,14 @@ const recipeSchema = mongoose.Schema({
   }
 }, { timestamps: true })
 
+recipeSchema.virtual('reviews', {
+  ref: 'Review',
+  localField: '_id',
+  foreignField: 'recipeId'
+})
+
 recipeSchema.set('toJSON', {
+  virtuals: true,
   transform: (document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString()
     delete returnedObject._id
