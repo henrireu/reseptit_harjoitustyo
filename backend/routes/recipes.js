@@ -27,6 +27,19 @@ recipesRouter.get('/latest', async (request, response, next) => {
   } 
 })
 
+/*recipesRouter.get('/popular', async (request, response, next) => {
+  try {
+    const recipes = await Recipe.find({})
+      .sort({ createdAt: -1 })
+      .populate('user', { username: 1, name: 1 })
+    
+    response.json(recipes)
+
+  } catch (error) {
+    next(error)
+  }
+})*/
+
 recipesRouter.get('/:id', async (request, response, next) => {
   try {
     const recipe = await Recipe.findById(request.params.id).populate('user', { username: 1, name: 1 })

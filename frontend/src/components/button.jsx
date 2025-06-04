@@ -7,7 +7,7 @@ const Button = ({ text, type, width, height, color, handleClick, disabled, loadi
   let darkFocus = 'dark:focus:ring-blue-800'
   let textColor = 'text-white'
   let disabledColor = 'bg-blue-800'
-
+ 
   if (color === 'blue') {
     background = 'bg-blue-700'
     hover = 'hover:bg-blue-800'

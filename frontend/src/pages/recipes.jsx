@@ -14,6 +14,8 @@ const Recipes = () => {
 
   const user = useSelector(state => state.user)
 
+  console.log('kaikki reseptit', recipes)
+
   useEffect(() => {
     const getRecipes = async () => {
       setError('')
