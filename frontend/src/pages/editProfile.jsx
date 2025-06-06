@@ -67,7 +67,7 @@ const EditProfile = () => {
       const userWithToken = {
         ...updatedUser,
         token: user.token
-      }
+      } 
 
       dispatch(setUser(userWithToken))
       localStorage.setItem('loggedRecipeAppUser', JSON.stringify(userWithToken))
@@ -127,6 +127,10 @@ const EditProfile = () => {
           </div>
         </div>
       )}
+
+      <div className="fixed bottom-0 w-full text-center bg-white">
+        <a href="https://www.flaticon.com/free-icons/chef" title="chef icons">Chef icons created by Freepik - Flaticon</a> 
+      </div>
 
     </div>
   )

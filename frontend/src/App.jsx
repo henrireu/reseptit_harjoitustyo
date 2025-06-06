@@ -16,6 +16,7 @@ import SingleRecipePage from "./pages/singleRecipePage"
 import Recipes from "./pages/recipes"
 import EditRecipe from "./pages/editRecipe"
 import EditProfile from "./pages/editProfile"
+import Popup from "./components/popup"
 
 const App = () => {
   const showLoginForm = useSelector(state => state.showLogin)
@@ -50,6 +51,7 @@ const App = () => {
     <div className="textt-gray-900 text-gray-700 bg-orange-100 min-h-screen pb-[10px] dark:bg-gray-500 dark:text-white">
       <Navbar />
       <Toaster />
+      <Popup />
       {showLoginForm && (
         <Login />
       )}

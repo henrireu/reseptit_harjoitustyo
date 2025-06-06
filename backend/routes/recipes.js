@@ -41,31 +41,6 @@ recipesRouter.get('/latest', async (request, response, next) => {
   } 
 })
 
-/*recipesRouter.get('/popular', async (request, response, next) => {
-  try {
-    const recipes = await Recipe.find({})
-      .populate('user', { username: 1, name: 1 }) 
-      .populate('reviews', { rating: 1 })
-
-    const recipesWithAvg = recipes.map(recipe => {
-      const ratings = recipe.reviews.map(r => r.rating)
-      const averageRating = ratings.length > 0
-        ? ratings.reduce((a, b) => a + b, 0) / ratings.length
-        : 0
-
-      const averageRatingRounded = Math.round(averageRating * 100) / 100
-
-      const recipeObj = recipe.toJSON()
-      recipeObj.averageRating = averageRatingRounded
-      return recipeObj
-    })
-
-    response.json(recipesWithAvg);
-  } catch (error) {
-    next(error)
-  }
-})*/
-
 recipesRouter.get('/:id', async (request, response, next) => {
   try {
     const recipe = await Recipe.findById(request.params.id).populate('user', { username: 1, name: 1 })
@@ -123,6 +98,50 @@ recipesRouter.post('/', upload.single('image'), async (request, response, next) 
 
     response.json(savedRecipe)
   } catch(error) {
+    console.error('here error:', error)
+    next(error)
+  }
+})
+
+recipesRouter.post('/no-image', async (request, response, next) => {
+  try {
+    if (!request.token) {
+      return response.status(401).json({ error: 'token missing' })
+    }
+
+    const { name, ingredients, instructions, timeUsed } = request.body
+
+    const decodedToken = jwt.verify(request.token, process.env.SECRET)
+
+    if (!decodedToken.id) {
+      return response.status(401).json({ error: 'token invalid' })
+    }
+
+    const user = await User.findById(decodedToken.id)
+
+    if (!user) {
+      return response.status(404).json({ error: 'User not found' })
+    }
+
+    const parsedIngredients = JSON.parse(ingredients)
+    const parsedInstructions = JSON.parse(instructions)
+
+    const recipe = new Recipe({
+      name,
+      ingredients: parsedIngredients,
+      instructions: parsedInstructions,
+      timeUsed: timeUsed,
+      imageUrl: null,
+      imageName: null,
+      user: user._id,
+    })
+
+    const savedRecipe = await recipe.save()
+    user.recipes = user.recipes.concat(savedRecipe._id)
+    await user.save()
+
+    response.json(savedRecipe)
+  } catch (error) {
     console.error('here error:', error)
     next(error)
   }

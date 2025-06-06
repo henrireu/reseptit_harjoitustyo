@@ -16,8 +16,6 @@ const Recipes = () => {
 
   const user = useSelector(state => state.user)
 
-  console.log('kaikki reseptit', recipes)
-
   useEffect(() => {
     const getRecipes = async () => {
       setError('')
@@ -66,7 +64,7 @@ const Recipes = () => {
 
       <SearchForm search={search} setSearch={setSearch}/>
 
-      <div className="flex gap-10 justify-center mb-5">
+      {/*<div className="flex gap-10 justify-center mb-5">
         <div className="flex items-center">
           <input
             id="radio-uusimmat"
@@ -101,6 +99,40 @@ const Recipes = () => {
           >
           Suosituimmat
           </label>
+        </div>
+      </div>*/}
+
+      <div className="flex gap-10 justify-center mb-5">
+        <div className="inline-flex items-center">
+          <label className="relative flex items-center cursor-pointer" htmlFor="uusimmat">
+            <input
+              name="sort-option"
+              value="uusimmat"
+              checked={recipestate2 === 'uusimmat'}
+              onChange={() => setRecipestate2('uusimmat')}
+              type="radio"
+              className="peer h-5 w-5 cursor-pointer appearance-none bg-orange-300 rounded-full border border-slate-300 checked:border-slate-400 transition-all"
+              id="uusimmat"
+            />
+            <span className="absolute bg-slate-800 w-3 h-3 rounded-full opacity-0 peer-checked:opacity-100 transition-opacity duration-200 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></span>
+          </label>
+          <label className="ml-2 text-slate-600 cursor-pointer text-md font-medium" htmlFor="html">Uusimmat</label>
+        </div>
+
+        <div className="inline-flex items-center">
+          <label className="relative flex items-center cursor-pointer" htmlFor="suosituimmat">
+            <input
+              name="sort-option"
+              value="suosituimmat"
+              checked={recipestate2 === 'suosituimmat'}
+              onChange={() => setRecipestate2('suosituimmat')}
+              type="radio"
+              className="peer h-5 w-5 cursor-pointer appearance-none bg-orange-300 rounded-full border border-slate-300 checked:border-slate-400 transition-all"
+              id="suosituimmat"
+            />
+            <span className="absolute bg-slate-800 w-3 h-3 rounded-full opacity-0 peer-checked:opacity-100 transition-opacity duration-200 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></span>
+          </label>
+          <label className="ml-2 text-slate-600 cursor-pointer text-md font-medium" htmlFor="react">Suosituimmat</label>
         </div>
       </div>
 
