@@ -64,44 +64,6 @@ const Recipes = () => {
 
       <SearchForm search={search} setSearch={setSearch}/>
 
-      {/*<div className="flex gap-10 justify-center mb-5">
-        <div className="flex items-center">
-          <input
-            id="radio-uusimmat"
-            type="radio"
-            value="uusimmat"
-            name="sort-option"
-            checked={recipestate2 === 'uusimmat'}
-            onChange={() => setRecipestate2('uusimmat')}
-            className="w-4 h-4 text-yellow-400 bg-gray-100 border-gray-300 focus:ring-yellow-500 dark:focus:ring-yellow-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-          />
-          <label
-            htmlFor="radio-uusimmat"
-            className="ms-2 text-md font-medium text-gray-900 dark:text-gray-300"
-          >
-          Uusimmat
-          </label>
-        </div>
-
-        <div className="flex items-center me-4">
-          <input
-            id="radio-suosituimmat"
-            type="radio"
-            value="suosituimmat"
-            name="colored-radio"
-            checked={recipestate2 === 'suosituimmat'}
-            onChange={() => setRecipestate2('suosituimmat')}
-            className="w-4 h-4 text-yellow-400 bg-gray-100 border-gray-300 focus:ring-yellow-500 dark:focus:ring-yellow-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-          />
-          <label
-            htmlFor="radio-suosituimmat"
-            className="ms-2 text-md font-medium text-gray-900 dark:text-gray-300"
-          >
-          Suosituimmat
-          </label>
-        </div>
-      </div>*/}
-
       <div className="flex gap-10 justify-center mb-5">
         <div className="inline-flex items-center">
           <label className="relative flex items-center cursor-pointer" htmlFor="uusimmat">
