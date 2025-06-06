@@ -1,0 +1,50 @@
+Työaikakirjanpito
+| Päivä     | Aika       | Min | Mitä tein                                                                         |
+|-----------|------------|-----|------------------------------------------------------------------------------------|
+| 3.2.2025  | 6h         | 360 | Koko projektin alustusta                                                           |
+| 4.2.2025  | 4h 40min   | 280 | Backend-kirjautuminen, frontendin navigointipalkin lisäys                          |
+| 5.2.2025  | 4h 50min   | 290 | Frontend-kirjautuminen, frontend navigoinnin lisäyksiä                             |
+| 6.2.2025  | 2h 40min   | 160 | Redux Toolkitin lisäys, sivujen lisäyksiä                                          |
+| 7.2.2025  | 6h 35min   | 395 | Backend-authorizationin laajennuksia, frontend: reseptin lisäyslomakkeen toteutus |
+
+| 10.2.2025 | 4h 5min   | 245 | Frontend: reseptin lisäys                                                           |
+| 11.2.2025 | 1h 5min   | 65  | Frontend: kuvanlatausinputin toteutus                                               |
+| 12.2.2025 | 4h 10min  | 250 | Cloudinary-integraatio front ja backend, yksittäisen reseptin sivu lisätty         |
+| 13.2.2025 | 3h 25min  | 205 | Yksittäisen reseptin sivun kehitystä                                                |
+| 14.2.2025 | 1h 30min  | 90  | Frontend: lataustilan (loading state) hiomista                                     |
+| 17.2.2025 | 5h 35min  | 335 | Reseptin tekijän käyttäjänimi näkyviin, frontendin parantelua                       |
+| 18.2.2025 | 6h 15min  | 375 | Token-validointi frontissa, etusivun toteutus, backendin `getLatest`-reitin säätö  |
+| 19.2.2025 | 6h 50min  | 410 | Käytetty aika lisätty resepteihin, reseptin muokkaussivu frontendissä              |
+| 20.2.2025 | 2h        | 120 | Reseptin muokkaus backendissä, frontend-parannuksia                                 |
+
+| 26.2.2025 | 1h 50min  | 110 | Backend-testit                                                                       |
+| 27.2.2025 | 50min     | 50  | Frontend-testien toteutus                                                            |
+| 5.3.2025  | 5h 40min  | 340 | Hakupalkin (searchbar) lisäys, GitHub Actions CI/CD                                 |
+| 10.3.2025 | 6h 15min  | 375 | Pipeline-työ, reseptin muokkaus (kuvan vaihtomahdollisuus) frontendissä             |
+| 11.3.2025 | 4h 20min  | 260 | Reseptin muokkaus kuvalla, frontendin hiomista                                      |
+| 12.3.2025 | 2h        | 120 | Pipeline-tekoa ja frontendin deployausta                                            |
+| 13.3.2025 | 1h 30min  | 90  | Frontendin viimeistelyä                                                              |
+| 14.3.2025 | 4h        | 240 | Frontendin viimeistelyä       
+
+Tein aiemmin tämän kurssin aikana arvostelu systeemin, minkä liitin tähän ja missä kesti 30h === 1800 min, minkä lasken tähän mukaan.
+
+| 17.3.2025 | 7h        | 420 | Review-järjestelmän integrointi                                                      |
+| 18.3.2025 | 5h 10min  | 310 | Review-järjestelmän kehitys frontissa ja backendissä                                 |
+| 19.3.2025 | 1h 20min  | 80  | Frontendin hiomista                                                                   |
+| 20.3.2025 | 50min     | 50  | Backend: käyttäjän profiilin muokkaus (`PUT` endpoint)                               |
+| 21.3.2025 | 4h 55min  | 295 | Frontend: käyttäjän muokkaussivun toteutus                                           |
+| 22.3.2025 | 1h        | 60  | Frontendin koodin siistimistä                                                         |
+| 24.3.2025 | 4h 35min  | 275 | Reseptin ja siihen liittyvien arvostelujen poisto, komponenttien siistämistä         |
+| 25.3.2025 | 5h 15min  | 315 | Komponenttien siistimistä, disabled-tila lisätty painikkeelle                        |
+| 26.3.2025 | 6h 25min  | 385 | Komponenttien siistimistä, käyttäjänimen max pituus 15, värimaailman muokkausta     |
+| 27.3.2025 | 1h        | 60  | RecipeCard-testin toteutus                                                           |
+
+| 2.4.2025  | 3h        | 180 | End-to-end (e2e) -testien tekoa                                                      |
+| 27.5.2025 | 1h            | 60  | Avatar-valinnan toteutus backendissä              |
+| 31.5.2025 | 1h 30min      | 90  | Avatar-valinta frontendissä                        |
+| 2.6.2025  | 4h 25min      | 265 | Avatarin valintaa, pieniä muutoksia workflow- ja backend-testeihin |
+| 3.6.2025  | 1h 40min      | 100 | Avatarin vaihtoa tehty                             |
+| 4.6.2025  | 5h 10min      | 310 | Loading-spinner komponentiksi, suosituimmat reseptit -kategoria |
+| 6.6.2025  | 5h            | 300 | Frontendin parannuksia                            |
+
+Yhteensä = 10 520 min | 175h 20min
